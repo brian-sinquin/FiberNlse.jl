@@ -1,4 +1,4 @@
-name = "NLSE"
+name = "Nlse"
 uuid = "21c1a3e3-8543-4069-a1c4-5ed3e2bf6e2f"
 authors = ["curio-sitas <paradisepx@gmail.com>"]
 version = "0.1.0"
