@@ -7,6 +7,9 @@
    id="svg65"
    sodipodi:docname="logo.svg"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   inkscape:export-filename="C:\Users\brian\Documents\GitHub\Nlse.jl\logo.png"
+   inkscape:export-xdpi="600"
+   inkscape:export-ydpi="600"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +28,7 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      inkscape:zoom="1.69"
-     inkscape:cx="232.84024"
+     inkscape:cx="231.06509"
      inkscape:cy="25.147929"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
@@ -193,7 +196,7 @@
   <g
      id="g1394-6"
      clip-path="url(#clipPath1468-0)"
-     transform="matrix(0,0.74664108,1.2194966,0,-109.57532,-435.61576)"
+     transform="matrix(0,0.74664108,1.2194966,0,-109.57531,-435.61576)"
      style="stroke-width:1.04797">
     <path
        clip-path="url(#clip322-0)"
@@ -249,12 +252,12 @@
   <text
      xml:space="preserve"
      style="font-style:normal;font-weight:normal;font-size:160px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:4"
-     x="206.98827"
+     x="206.98828"
      y="703.50311"
      id="text2698-7"><tspan
        sodipodi:role="line"
        id="tspan2696-7"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Fir;-inkscape-font-specification:Fir;stroke-width:4"
-       x="206.98827"
+       x="206.98828"
        y="703.50311" /></text>
 </svg>

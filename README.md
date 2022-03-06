@@ -1,5 +1,5 @@
 <p align="center">
-<img src="logo.svg" />
+<img src="logo.png" />
 </p>
 
 # 
@@ -8,8 +8,10 @@
 ## Roadmap
 
 - [x] Implement Split-Step Method
+- [x] Add progress bar option
 - [ ] Document code
 - [ ] Setup continuous integration
+- [ ] Add non constant dispersion (and higher order dispersion)
 - [ ] Create a documentation page (mdbook ?)
 - [ ] Higher order integral solver (**DifferentialEquations.jl**)
 - [ ] Add more non-linear processes (Raman & Brillouin scattering)

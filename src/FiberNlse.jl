@@ -1,5 +1,6 @@
 module FiberNlse
 using FFTW
+using ProgressBars
 
 
 struct NLSE_sim # Simulation struct containing all needed data
@@ -35,7 +36,7 @@ function initialSignal(sim, ψₒ::Vector{ComplexF32})
     sim.Ψ[1,:] = ψₒ;
 end
 
-function simulate(sim)
+function simulate(sim, progress::Bool=false)
 
     
     ν = FFTW.fftfreq(sim.N_t, 1.0/(2*sim.dt))
@@ -44,9 +45,14 @@ function simulate(sim)
     N(ui) = abs.(ui).^2*sim.γ*1im
     dl = sim.dz
     α = sim.α
-    for i in range(2, sim.N_z)
+    if progress
+        iter_z = ProgressBar(range(2, sim.N_z));
+    else 
+        iter_z = range(2, sim.N_z);
+    end
+    for i in iter_z
 
-        ψₗ=sim.Ψ[i-1,:]
+        ψₗ=sim.Ψ[i-1,:];
 
         ψₗ = ifft(exp.(0.5*dl.*(Disp(sim.β2).-0.5.*α)).*fft(ψₗ));
         ψₗ = exp.(dl*N(ψₗ)).*ψₗ;
