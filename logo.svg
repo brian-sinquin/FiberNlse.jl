@@ -5,7 +5,7 @@
    viewBox="0 0 1734.6035 920.71008"
    version="1.1"
    id="svg65"
-   sodipodi:docname="NLSE_logo.svg"
+   sodipodi:docname="logo.svg"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -128,12 +128,23 @@
   <text
      xml:space="preserve"
      style="font-style:normal;font-weight:normal;font-size:160px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:4"
-     x="785.3996"
-     y="403.5488"
+     x="314.39368"
+     y="770.41272"
      id="text2698"><tspan
        sodipodi:role="line"
        id="tspan2696"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Source Code Pro';-inkscape-font-specification:'Source Code Pro';stroke-width:4"
-       x="785.3996"
-       y="403.5488">NLSE.jl</tspan></text>
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Fir;-inkscape-font-specification:Fir;stroke-width:4"
+       x="314.39368"
+       y="770.41272">FiberNlse.jl</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-weight:normal;font-size:160px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:4"
+     x="206.98827"
+     y="703.50311"
+     id="text2698-7"><tspan
+       sodipodi:role="line"
+       id="tspan2696-7"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Fir;-inkscape-font-specification:Fir;stroke-width:4"
+       x="206.98827"
+       y="703.50311" /></text>
 </svg>
