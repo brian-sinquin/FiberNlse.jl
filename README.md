@@ -25,6 +25,7 @@ To install you can simply type `] add FiberNlse` in your julia terminal or clone
 
 - [x] Implement Split-Step Method
 - [x] Add progress bar option
+- [x] Register DOI
 - [ ] Document code
 - [ ] Setup continuous integration
 - [ ] Add non constant dispersion (and higher order dispersion)
@@ -35,7 +36,8 @@ To install you can simply type `] add FiberNlse` in your julia terminal or clone
 ## Citation
 Please cite this repository if you use it to publish data in a reasearch paper.
 
-`
+
+```
 @software{sinquin_brian_2022_6331654,
   author       = {Sinquin Brian},
   title        = {FiberNlse.jl},
@@ -46,5 +48,6 @@ Please cite this repository if you use it to publish data in a reasearch paper.
   doi          = {10.5281/zenodo.6331654},
   url          = {https://doi.org/10.5281/zenodo.6331654}
 }
-`
+```
+
 ### source : https://www.fiberoptics4sale.com/blogs/wave-optics/solitons-in-optical-fibers
