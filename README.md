@@ -1,5 +1,5 @@
 <p align="center">
-[logo](logo.svg)
+<img src="logo.svg" />
 </p>
 ---
  A non-linear Schrödinger equation solver for julia aimed towards fiber optics.
