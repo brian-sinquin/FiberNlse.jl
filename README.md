@@ -1,8 +1,9 @@
+
 <p align="center">
 <img src="logo.png" />
 </p>
 
-# 
+# [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6331654.svg)](https://doi.org/10.5281/zenodo.6331654)
  A non-linear Schrödinger equation solver for julia aimed towards fiber optics.
 
 ## Features
@@ -31,4 +32,19 @@ To install you can simply type `] add FiberNlse` in your julia terminal or clone
 - [ ] Higher order integral solver (**DifferentialEquations.jl**)
 - [ ] Add more non-linear processes (Raman & Brillouin scattering)
 
+## Citation
+Please cite this repository if you use it to publish data in a reasearch paper.
+
+`
+@software{sinquin_brian_2022_6331654,
+  author       = {Sinquin Brian},
+  title        = {FiberNlse.jl},
+  month        = mar,
+  year         = 2022,
+  publisher    = {Zenodo},
+  version      = {0.1.0},
+  doi          = {10.5281/zenodo.6331654},
+  url          = {https://doi.org/10.5281/zenodo.6331654}
+}
+`
 ### source : https://www.fiberoptics4sale.com/blogs/wave-optics/solitons-in-optical-fibers
