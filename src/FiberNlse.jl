@@ -1,4 +1,4 @@
-module NLSE
+module FiberNlse
 using FFTW
 
 

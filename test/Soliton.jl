@@ -24,11 +24,11 @@ t = T*0.5*range(-1, stop=1, length=Nₜ) # Time vector
 Ψₒ = Vector{ComplexF32}(@. 0.5*sqrt(Pp)/cosh(t/τ)) # Soliton formula
 
 
-sim = NLSE.configure(Nₜ,Nₗ,D, γ, α, L, T, λ)
+sim = U.configure(Nₜ,Nₗ,D, γ, α, L, T, λ)
 
 
-NLSE.initialSignal(sim,Ψₒ)
-NLSE.simulate(sim)
+U.initialSignal(sim,Ψₒ)
+U.simulate(sim)
 
 l = range(0,stop=L, length=Nₗ)
 
