@@ -3,7 +3,7 @@
 <img src="logo.png" />
 </p>
 
-# [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6331654.svg)](https://doi.org/10.5281/zenodo.6331654)
+# [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6331654.svg)](https://doi.org/10.5281/zenodo.6331654) [![Run tests](https://github.com/curio-sitas/FiberNlse.jl/actions/workflows/build_pkg_tests.yml/badge.svg?event=push)](https://github.com/curio-sitas/FiberNlse.jl/actions/workflows/build_pkg_tests.yml)
  A non-linear Schrödinger equation solver for julia aimed towards fiber optics.
 
 ## Features
