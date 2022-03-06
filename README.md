@@ -1,7 +1,4 @@
-# Nlse.jl
-
-![NLSE](NLSE_logo.svg)
-
+# FiberNlse.jl
  A non-linear Schrödinger equation solver for julia aimed towards fiber optics.
 
 ## Roadmap
@@ -10,6 +7,4 @@
 - [ ] Higher order integral solver (**DifferentialEquations.jl**)
 - [ ] Add more non-linear processes (Raman & Brillouin scattering)
 
-## Instalation
-
-* TODO
+## Installation

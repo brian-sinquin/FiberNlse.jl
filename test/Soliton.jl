@@ -1,4 +1,4 @@
-include("../src/NLSE.jl")
+include("../src/FiberNlse.jl")
 using Plots;
 U = NLSE # Alias for units;
 
