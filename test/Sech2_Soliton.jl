@@ -24,7 +24,7 @@ FiberNlse.simulate(sim, false); # run the simulation
 
 # Visualization
 
-using GLMakie
+#= using GLMakie
 
 begin
 fig = Figure(resolution=(860, 400), fontsize=12)
@@ -34,4 +34,4 @@ hm = surface!(ax1, t/ps, l/km, abs.(sim.Ψ').^2)
 heatmap!(ax2, t/ps, l/km, abs.(sim.Ψ').^2)
 Colorbar(fig[1, 3], hm, height=Relative(0.5), label="Power [W]")
 fig
-end
+end =#
