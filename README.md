@@ -1,12 +1,10 @@
 
 <p align="center">
-<img src="logo.png" />
+<img src="images/logo.png" />
 </p>
 
 # [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6331654.svg)](https://doi.org/10.5281/zenodo.6331654) [![Run tests](https://github.com/curio-sitas/FiberNlse.jl/actions/workflows/build_pkg_tests.yml/badge.svg?event=push)](https://github.com/curio-sitas/FiberNlse.jl/actions/workflows/build_pkg_tests.yml)
- A non-linear Schrödinger equation solver for julia aimed towards fiber optics.
-
-🚧 Work in progress 🚧
+ A non-linear Schrödinger equation solver for julia aimed towards fiber optics. (🚧 Under development)
 
 ## Features
 
@@ -14,9 +12,16 @@ The *FiberNlse.jl* package simulates the propagation of an optical field envelop
 
 The core of the simulation consists in the integration of the *Non-Linear Schrödinger Equation* with the desired signal as initial condition.
 
+---
+
 ## Examples
-- [ ] TODO
 ### Sech² Soliton
+One can simulate the propagation of sech² soliton (order N=2) in an SMF-28 optical fiber by typing the following script :
+![sech2_code](images/sech2_code.png)
+
+Wich gives the following result :
+![sech2_plot](images/sech2_plot.png)
+
 ### Self-phase modulation
 ### Time-lens compression
 ### Other types of solitons
@@ -42,6 +47,7 @@ in your julia terminal or clone this repository and include the `src/FiberNlse.j
 - [ ] Add more non-linear processes (Raman & Brillouin scattering)
 
 ## Citation
+
 Please cite this repository if you use it to publish data in a research paper.
 
 
@@ -52,7 +58,7 @@ Please cite this repository if you use it to publish data in a research paper.
   month        = mar,
   year         = 2022,
   publisher    = {Zenodo},
-  version      = {0.1.0},
+  version      = {1.0.0},
   doi          = {10.5281/zenodo.6331654},
   url          = {https://doi.org/10.5281/zenodo.6331654}
 }

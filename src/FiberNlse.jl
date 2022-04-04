@@ -1,7 +1,9 @@
 module FiberNlse
 using FFTW
 using ProgressBars
+using DifferentialEquations
 
+include("datatypes.jl")
 # Physical units & constants
 
 nm = ns = 1e-9
@@ -14,37 +16,12 @@ m = 1
 W = 1
 c = 299792458
 
-struct NLSE_sim # Simulation struct containing all needed data
-    Ψ::Matrix{Complex{Float32}}
-    dz
-    dt
-    Nₜ::Int
-    Nₗ::Int
-    D
-    γ
-    α
-    L
-    T
-    λ
-    β2
-    t::Vector{Float32}
-    conf::SimulationConfig
-end
+export nm, ns, ps, pm, km, mW, mm, GHz, THz, m, W, c
 
-struct Fiber
-    D::Union{Float32} # dispersion factor
-    α # exponential power loss
-    γ # nonlinear Kerr factor
-    L # fiber length
-end
 
-struct SimulationConfig
-    SS::Bool
-    SRS::Bool
-    SBS::Bool
-end
 
-default_config = SimulationConfig(false, false, false)
+
+
 function configure(Nₜ::Int,
     Nₗ::Int,
     fib::Fiber,
@@ -72,8 +49,9 @@ function configure(
     T,
     λ, conf::SimulationConfig=default_config)
     t = T * 0.5 * range(-1, stop=1, length=Nₜ) # Time vector
-    Ψ = Matrix{Complex}(zeros((Nₗ, Nₜ)))
-    return NLSE_sim(Ψ, L / Nₗ, T / Nₜ, Nₜ, Nₗ, D, γ, α, L, T, λ, -D * λ^2 / (2 * pi * c), t, conf), t
+    l = L * range(0,stop=1,length=Nₗ)
+    Ψ = Matrix{ComplexF32}(zeros((Nₗ, Nₜ)))
+    return Simulation(Ψ, L / Nₗ, T / Nₜ, Nₜ, Nₗ, D, γ, α, L, T, λ, -D * λ^2 / (2 * pi * c), t, conf), t, l
 end
 
 function inputSignal(sim, ψₒ)
@@ -81,7 +59,7 @@ function inputSignal(sim, ψₒ)
 end
 
 
-function simulate(sim, progress::Bool=false)
+function simulate(sim::Simulation, progress::Bool=false)
 
 
     D(sim, ν) = @. -sim.β2 * 0.5im * (2 * pi * ν)^2
@@ -95,7 +73,7 @@ function simulate(sim, progress::Bool=false)
     end
 
     ν = FFTW.fftfreq(sim.Nₜ, 1.0 / (sim.dt))
-
+    
 
     dl = sim.dz
     α = sim.α
@@ -111,12 +89,22 @@ function simulate(sim, progress::Bool=false)
         ψₗ = ifft(exp.(0.5 * dl .* (D̂ .- 0.5α)) .* fft(ψₗ))
 
         sim.Ψ[i, :] = ψₗ
+
     end
+  
 
 end
 
-function transition(sim1, sim2) # Use the final state of sim1 as initial state of sim2
+function transition(sim1::Simulation, sim2::Simulation) # Use the final state of sim1 as initial state of sim2
     inputSignal(sim2, sim1.Ψ[end, :])
 end
 
+
+function rhs()
+    # ! Lire le code de gnlse-python (les mettre dans les crédits)
+end
+
+function simulate2(sim::Simulation)
+    # ! Integration RK4 de l'ode rhs
+end
 end

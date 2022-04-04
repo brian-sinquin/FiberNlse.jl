@@ -1,8 +1,5 @@
-include("../src/FiberNlse.jl")
-using Plots;
-using FFTW;
-gr()
-U = FiberNlse # Alias for units;
+using FiberNlse
+
 
 # Simulation dimension
 Nₜ, Nₗ = (2000,2000);
@@ -28,7 +25,7 @@ f0=1e10;
 t = T*0.5*range(-1, stop=1, length=Nₜ); # Time vector
 noiseP = sqrt(1e-8)*randn(ComplexF64,length(t))
 noisePhi = pi*1e-14*randn(ComplexF64,length(t))
-Ψₒ = noiseP+Vector{ComplexF64}(@. sqrt(Pp)*cos(2pi*f0*t)*exp(1im*(noisePhi+β*cos(2pi*f0*t)+φ))) # Soliton formula
+Ψₒ = noiseP + sqrt(Pp)*cos(2pi*f0*t)*exp(1im*(noisePhi+β*cos(2pi*f0*t)+φ))
 
 
 
@@ -42,7 +39,7 @@ L = 5.0*U.km;
 
 sim2 = U.configure(Nₜ,Nₗ,D, γ, α, L, T, λ);
 U.transition(sim, sim2)
-U.simulate(sim2)
+
 
 
 l = range(0,stop=L, length=Nₗ);

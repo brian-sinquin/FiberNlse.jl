@@ -1,8 +1,8 @@
 
 println("➡️ Running Tests for Soliton problem ...")
-include("Soliton.jl")
+include("Sech2_Soliton.jl")
 
-println("----------------------------------")
+#println("----------------------------------")
 
-println("➡️ Running Tests for SPM problem ...")
-include("SPM.jl")
+#println("➡️ Running Tests for SPM problem ...")
+#include("SPM.jl")
