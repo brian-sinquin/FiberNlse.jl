@@ -1,7 +1,7 @@
 module FiberNlse
 using FFTW
 using ProgressBars
-using DifferentialEquations
+
 
 include("datatypes.jl")
 # Physical units & constants
