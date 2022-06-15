@@ -1,4 +1,5 @@
-using FiberNlse
+include("../src/FiberNlse.jl")
+using .FiberNlse
 
 
 # Simulation dimension

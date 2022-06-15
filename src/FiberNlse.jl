@@ -8,7 +8,7 @@ include("datatypes.jl")
 
 nm = ns = 1e-9
 ps = pm = 1e-12
-km = 1e3
+km = kHz = 1e3
 mW = mm = 1e-3
 GHz = 1e9
 Thz = 1e12
@@ -54,10 +54,32 @@ function configure(
     return Simulation(Ψ, L / Nₗ, T / Nₜ, Nₜ, Nₗ, D, γ, α, L, T, λ, -D * λ^2 / (2 * pi * c), t, conf), t, l
 end
 
+function configure(
+    Nₜ::Int,
+    Nₗ::Int,
+    fiber::Fiber,
+    T,
+    λ, conf::SimulationConfig=default_config)
+    t = T * 0.5 * range(-1, stop=1, length=Nₜ) # Time vector
+    l = fiber.L * range(0,stop=1,length=Nₗ)
+    Ψ = Matrix{ComplexF32}(zeros((Nₗ, Nₜ)))
+    return Simulation(Ψ, fiber.L / Nₗ, T / Nₜ, Nₜ, Nₗ, fiber.D, fiber.γ, fiber.α, fiber.L, T, λ, - fiber.D * λ^2 / (2 * pi * c), t, conf), t, l
+end
+
 function inputSignal(sim, ψₒ)
     sim.Ψ[1, :] = ψₒ
 end
 
+function edfa(L::Real, G::Float32)
+    g  = 10*log10(G)/L
+    fib = Fiber(-10*ps/nm/km, g, 1/W/km, L);
+    return fib
+end
+
+function smf28(L::Real)
+    fib = Fiber(-17*ps/nm/km, 0.046/km, 1.1/W/km, L);
+    return fib
+end
 
 function simulate(sim::Simulation, progress::Bool=false)
 

@@ -1,28 +1,32 @@
-using ..FiberNlse
+include("../src/FiberNlse.jl")
+using .FiberNlse
 # Simulation dimension
 Nₜ, Nₗ = (1000,1000);
 
 # Fiber properties
-L = 5.0*km; # Fiber length
-fib = FiberNlse.smf28(L)
+L = 5km; # Fiber length
+fib2 = FiberNlse.smf28(2*L)
+fib1 = FiberNlse.Fiber(-fib1.D, fib1.α, fib1.γ,L)
+
 # Signal properties
-T = 40*ps; # Signal duration
+T = 200*ps; # Signal duration
 λ = 1550*nm; # Wavelength
 τ = 5*ps; # Pulse duration
 N = 1 # Soliton number
-sim,t,l = FiberNlse.configure(Nₜ,Nₗ,fib, T, λ);
-
+sim,t,l = FiberNlse.configure(Nₜ,Nₗ,fib1, T, λ);
+sim2,t,l = FiberNlse.configure(Nₜ,Nₗ,fib2, T, λ);
 # Input construction
-Pp = abs((sim.β2/γ/τ^2)*N^2) # Soliton power
+Pp = abs((sim.β2/fib1.γ/τ^2)*N^2) # Soliton power
 Ψₒ = @. sqrt(Pp)/cosh(t/τ) # Soliton formula
 FiberNlse.inputSignal(sim,Ψₒ);
-
-FiberNlse.simulate(sim, false); # run the simulation
-
+FiberNlse.simulate(sim, true); # run the simulation
+FiberNlse.transition(sim,sim2)
+FiberNlse.simulate(sim2, true);
 # Visualization
-
+S = vcat(sim.Ψ,sim2.Ψ)
 using Plots
-heatmap(t/ps, l/km, abs.(sim.Ψ').^2)
+gr()
+heatmap(abs2.(S'))
 
 #= using GLMakie
 
