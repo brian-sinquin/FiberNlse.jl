@@ -1,4 +1,6 @@
-using ..FiberNlse
+include("../src/FiberNlse.jl")
+using .FiberNlse
+
 # Simulation dimension
 Nₜ, Nₗ = (1000,1000);
 
@@ -13,7 +15,7 @@ N = 1 # Soliton number
 sim,t,l = FiberNlse.configure(Nₜ,Nₗ,fib, T, λ);
 
 # Input construction
-Pp = abs((sim.β2/γ/τ^2)*N^2) # Soliton power
+Pp = abs((sim.β2/fib.γ/τ^2)*N^2) # Soliton power
 Ψₒ = @. sqrt(Pp)/cosh(t/τ) # Soliton formula
 FiberNlse.inputSignal(sim,Ψₒ);
 
