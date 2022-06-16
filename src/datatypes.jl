@@ -5,6 +5,11 @@ struct Fiber
     L # fiber length
 end
 
+struct Bundle
+    elems::Vector{Fiber}
+    Ns::Union{Int, Vector{Int}} 
+end
+
 struct SimulationConfig
     SS::Bool
     SRS::Bool

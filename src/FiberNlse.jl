@@ -1,4 +1,5 @@
 module FiberNlse
+export nm, ns, ps, pm, km, mW, mm, GHz, THz, m, W, c, smf28,edfa, simulate, configure, inputSignal, Fiber, Bundle
 using FFTW
 using ProgressBars
 
@@ -15,8 +16,6 @@ Thz = 1e12
 m = 1
 W = 1
 c = 299792458
-
-export nm, ns, ps, pm, km, mW, mm, GHz, THz, m, W, c
 
 
 
@@ -66,13 +65,48 @@ function configure(
     return Simulation(Ψ, fiber.L / Nₗ, T / Nₜ, Nₜ, Nₗ, fiber.D, fiber.γ, fiber.α, fiber.L, T, λ, - fiber.D * λ^2 / (2 * pi * c), t, conf), t, l
 end
 
+function configure(
+    fibs::Bundle,
+    Nₜ::Int,
+    T,
+    λ, conf::SimulationConfig=default_config)
+
+
+    t = T * 0.5 * range(-1, stop=1, length=Nₜ) # Time vector
+    sims = Simulation[];
+
+    l=Float64[];
+    for (idx,fiber) in enumerate(fibs.elems)
+        if typeof(fibs.Ns)==Int
+            
+                Nₗ = fibs.Ns;     
+        else 
+                
+                Nₗ = fibs.Ns[idx];
+        end
+                
+                li = fiber.L * range(0,stop=1,length=Nₗ)
+                if isempty(l)
+                    l=vcat(l,li)
+                else
+                    l=vcat(l,li.+l[end])
+                end
+                Ψ = Matrix{ComplexF32}(zeros((Nₗ, Nₜ)))
+                sim = Simulation(Ψ, fiber.L / Nₗ, T / Nₜ, Nₜ, Nₗ, fiber.D, fiber.γ, fiber.α, fiber.L, T, λ, - fiber.D * λ^2 / (2 * pi * c), t, conf)
+        push!(sims,sim)
+    end
+
+
+   
+    return sims,t,l
+end
 function inputSignal(sim, ψₒ)
     sim.Ψ[1, :] = ψₒ
 end
 
-function edfa(L::Real, G::Float32)
-    g  = 10*log10(G)/L
-    fib = Fiber(-10*ps/nm/km, g, 1/W/km, L);
+function edfa(L::Real, G::Real)
+    g  = 0.1*log(10)*G/L
+    fib = Fiber(-10*ps/nm/km, -g, 1/W/km, L);
     return fib
 end
 
@@ -80,6 +114,8 @@ function smf28(L::Real)
     fib = Fiber(-17*ps/nm/km, 0.046/km, 1.1/W/km, L);
     return fib
 end
+
+
 
 function simulate(sim::Simulation, progress::Bool=false)
 
@@ -115,6 +151,23 @@ function simulate(sim::Simulation, progress::Bool=false)
     end
   
 
+end
+
+function simulate(sims::Vector{Simulation}, Ψₒ::Vector{Float64},progress::Bool=false)
+    S = []
+    for (idx, sim) in enumerate(sims)
+        if idx == 1
+            inputSignal(sim,Ψₒ)
+            simulate(sim,progress)
+            S = sim.Ψ
+        else
+            inputSignal(sim, S[end, :])
+            simulate(sim,progress)
+            S = vcat(S, sim.Ψ)
+        end
+        
+    end
+    return S
 end
 
 function transition(sim1::Simulation, sim2::Simulation) # Use the final state of sim1 as initial state of sim2
