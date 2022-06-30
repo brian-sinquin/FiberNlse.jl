@@ -6,14 +6,15 @@ using FFTW;
 using Peaks;
 using SpecialFunctions;
 
-
+pm = 1e-12
+c = 3e8
 begin
     
 # CONSTANTS
     T = 5e4ps;
     Fs = 10GHz;
 # Simulation dimension
-    Nₜ, Nₗ = (Int(round(Fs*T)),500);
+    Nₜ, Nₗ = (Int(round(Fs*T)),1000);
 
 # Fiber properties
 
@@ -52,7 +53,7 @@ plot(SP(ψf))
 scatter!(idx, sp[idx])
 
 begin
-Pl = (30:10:300)*mW
+Pl = (30:10:300)*1e-3
 r = []
 pf = []
 for p in Pl
@@ -68,7 +69,7 @@ if length(idx)>1
 end
 end
 end
-pth = range(30, 300, 1000)*mW
+pth = range(30, 300, 1000)*1e-3
 a=0.82pi/maximum(pth)
 
 rr(x) = @. (besselj0(0.5x)^2+besselj1(0.5x)^2)/(besselj1(0.5x)^2+besseljx(2,0.5x)^2)

@@ -1,5 +1,5 @@
 module FiberNlse
-export nm, ns, ps, pm, km, mW, mm, GHz, THz, m, W, c, smf28,edfa, simulate, configure, inputSignal, Fiber, Bundle
+export nm, ns, ps, pm, km, mW, mm, GHz, THz, m, W, c, smf28,edfa, simulate, configure, inputSignal, Fiber, Bundle, transition
 using FFTW
 using ProgressBars
 
