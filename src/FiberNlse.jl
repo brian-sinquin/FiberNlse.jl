@@ -111,7 +111,7 @@ function edfa(L::Real, G::Real)
 end
 
 function smf28(L::Real)
-    fib = Fiber(-17*ps/nm/km, 0.046/km, 1.1/W/km, L);
+    fib = Fiber(17*ps/nm/km, 0.046/km, 1.1/W/km, L);
     return fib
 end
 
@@ -120,7 +120,7 @@ end
 function simulate(sim::Simulation, progress::Bool=false)
 
 
-    D(sim, ν) = @. -sim.β2 * 0.5im * (2 * pi * ν)^2
+    D(sim, ν) = @. sim.β2 * 0.5im * (2 * pi * ν)^2
     N̂(sim, u) = @. abs(u)^2 * sim.γ * 1im
 
     # Check wether to show progressbar or not
