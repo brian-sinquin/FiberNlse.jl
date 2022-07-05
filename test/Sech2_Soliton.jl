@@ -6,7 +6,7 @@ Nₜ, Nₗ = (2000,1000);
 
 # Fiber properties
 L = 5.0*km; # Fiber length
-fib = FiberNlse.smf28(L)
+fib = FiberNlse.smf28(L)a
 
 # Signal properties
 T = 1000*ps; # Signal duration
