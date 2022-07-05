@@ -30,7 +30,7 @@ sol=sol(l)
 # Visualization
 
 #using Plots
-heatmap(t/ps, l/km, abs2.(sim.Ψ))
+#heatmap(t/ps, l/km, abs2.(sim.Ψ))
 #surface(l/km,t/ps, abs2.(sim.Ψ'), camera=(60,20))
-plot(abs2.(sim.Ψ[end,:]))
-plot!(abs2.(sol[:,end]))
+#plot(abs2.(sim.Ψ[end,:]))
+#plot!(abs2.(sol[:,end]))
