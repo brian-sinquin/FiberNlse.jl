@@ -1,40 +1,36 @@
 include("../src/FiberNlse.jl")
 using .FiberNlse
-
+using Test
 # Simulation dimension
-Nₜ, Nₗ = (1000,1000);
+Nₜ, Nₗ = (2000,1000);
 
 # Fiber properties
 L = 5.0*km; # Fiber length
 fib = FiberNlse.smf28(L)
+
 # Signal properties
-T = 40*ps; # Signal duration
+T = 1000*ps; # Signal duration
 λ = 1550*nm; # Wavelength
-τ = 5*ps; # Pulse duration
+τ = 100*ps; # Pulse duration
 N = 1 # Soliton number
 sim,t,l = FiberNlse.configure(Nₜ,Nₗ,fib, T, λ);
-
 # Input construction
-Pp = abs((sim.β2/fib.γ/τ^2)*N^2) # Soliton power
-Ψₒ = @. sqrt(Pp)/cosh(t/τ) # Soliton formula
+P₀ =  abs((sim.β2/fib.γ/τ^2)*N^2) # Soliton power
+Ψₒ = @. sqrt(P₀)/cosh(t/τ) # Soliton formula
+
 FiberNlse.inputSignal(sim,Ψₒ);
 
 FiberNlse.simulate(sim, false); # run the simulation
 
+# Testing soliton propagation (including losses)
+@test isapprox(abs2.(Ψₒ.*exp(-0.5*fib.α*L)), abs2.(sim.Ψ[end,:]), atol=0.005)
+
+@time sol=FiberNlse.simulate2(sim);
+sol=sol(l)
 # Visualization
 
-using Plots
-heatmap(t/ps, l/km, abs.(sim.Ψ').^2)
-
-#= using GLMakie
-
-begin
-fig = Figure(resolution=(860, 400), fontsize=12)
-ax1 = Axis3(fig[1,1]; aspect=(1,1,1),ylabel="Distance [km]", xlabel="Time [ps]", zlabel="Power [W]")
-ax2 = Axis(fig[1,2], ylabel="Distance [km]", xlabel="Time [ps]")
-hm = surface!(ax1, t/ps, l/km, abs.(sim.Ψ').^2)
-heatmap!(ax2, t/ps, l/km, abs.(sim.Ψ').^2)
-Colorbar(fig[1, 3], hm, height=Relative(0.5), label="Power [W]")
-fig
-end
- =#
+#using Plots
+heatmap(t/ps, l/km, abs2.(sim.Ψ))
+#surface(l/km,t/ps, abs2.(sim.Ψ'), camera=(60,20))
+plot(abs2.(sim.Ψ[end,:]))
+plot!(abs2.(sol[:,end]))

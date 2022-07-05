@@ -2,7 +2,7 @@ module FiberNlse
 export nm, ns, ps, pm, km, mW, mm, GHz, THz, m, W, c, smf28,edfa, simulate, configure, inputSignal, Fiber, Bundle, transition
 using FFTW
 using ProgressBars
-
+using DifferentialEquations
 
 include("datatypes.jl")
 # Physical units & constants
@@ -166,6 +166,7 @@ function simulate(sims::Vector{Simulation}, Ψₒ::Vector{Float64},progress::Boo
             S = vcat(S, sim.Ψ)
         end
         
+        
     end
     return S
 end
@@ -175,11 +176,29 @@ function transition(sim1::Simulation, sim2::Simulation) # Use the final state of
 end
 
 
-function rhs()
-    # ! Lire le code de gnlse-python (les mettre dans les crédits)
+
+    
+function rhs(u,p,z)
+    D, γ, α = p
+    Adisp = ifft(fft(u) .* D)
+    Anl = 1im*γ*abs2.(u).*u
+    Alosses = -0.5*α.*u
+    
+    return @. Adisp+Anl+Alosses
+    
 end
+    
+    
+# ! Lire le code de gnlse-python (les mettre dans les crédits)
 
 function simulate2(sim::Simulation)
     # ! Integration RK4 de l'ode rhs
+  
+    ν = FFTW.fftfreq(sim.Nₜ, 1.0 / (sim.dt))
+    D = @. sim.β2 * 0.5im * (2 * pi * ν)^2
+   
+    p0 = (D , sim.γ, sim.α)
+    pb = ODEProblem(rhs, sim.Ψ[1,:], (0,sim.L), p0)
+    solve(pb, RK4(), dt=sim.L/sim.Nₗ)
 end
 end

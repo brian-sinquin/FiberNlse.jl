@@ -1,9 +1,5 @@
-
-# Tests are just examples
-# Skipping for now (CI)
-
-#println("➡️ Running Tests for Soliton problem ...")
-#include("Sech2_Soliton.jl")
+println("➡️ Running Tests for Soliton problem ...")
+include("Sech2_Soliton.jl")
 
 #println("----------------------------------")
 
