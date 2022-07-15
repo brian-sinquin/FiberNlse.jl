@@ -1,7 +1,15 @@
-println("➡️ Running Tests for Soliton problem ...")
-include("Sech2_Soliton.jl")
+using Test
 
-#println("----------------------------------")
+tests = [
+    "soliton"
+]
 
-#println("➡️ Running Tests for SPM problem ...")
-#include("SPM.jl")
+const testdir = dirname(@__FILE__)
+
+
+for t in tests
+    tp = joinpath(testdir, "$(t).jl")
+    @testset "$(t)" begin
+      include(tp)
+    end
+end
