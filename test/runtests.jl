@@ -1,6 +1,7 @@
 using Test
-include("../src/FiberNlse.jl")
-using .FiberNlse
+using FiberNlse
+
+
 tests = [
     "soliton"
 ]

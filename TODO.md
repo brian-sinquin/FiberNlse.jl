@@ -17,6 +17,7 @@ This version aims on the optimization of the integration, a more robust and rich
 ## Cleanup and repair
 
 * [ ] Cleanup files
+* [x] Cleanup deps
 * [ ] Create examples
 * [ ] Add more tests
 

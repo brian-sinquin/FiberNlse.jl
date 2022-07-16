@@ -1,6 +1,6 @@
 module FiberNlse
 using FFTW
-using Plots
+
 # Physical units & constants
 
 nm = ns = 1e-9
