@@ -1,6 +1,5 @@
 include("../src/FiberNlse.jl")
 using .FiberNlse
-using Test
 # Simulation dimension
 Nₜ, Nₗ = (2000,1000);
 
