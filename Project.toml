@@ -1,7 +1,7 @@
 name = "FiberNlse"
 uuid = "21c1a3e3-8543-4069-a1c4-5ed3e2bf6e2f"
 authors = ["curio-sitas <paradisepx@gmail.com>"]
-version = "1.1.0"
+version = "1.1.1"
 
 [deps]
 CompatHelper = "aa819f21-2bde-4658-8897-bab36330d9b7"
@@ -9,6 +9,7 @@ DifferentialEquations = "0c46a032-eb83-5123-abaf-570d42b7fbaa"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 DocumenterTools = "35a29f4d-8980-5a13-9543-d66fff28ecb8"
 FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
+PhysicalConstants = "5ad8b20f-a522-5ce9-bfc9-ddf1d5bda6ab"
 ProgressBars = "49802e3a-d2f1-5c88-81d8-b72133a6f568"
 
 [compat]

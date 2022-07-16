@@ -1,5 +1,6 @@
 using Test
-
+include("../src/FiberNlse.jl")
+using .FiberNlse
 tests = [
     "soliton"
 ]
