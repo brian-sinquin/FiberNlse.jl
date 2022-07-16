@@ -1,4 +1,6 @@
 using Test
+using FiberNlse
+
 
 tests = [
     "soliton"

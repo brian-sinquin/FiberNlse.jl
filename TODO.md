@@ -1,4 +1,4 @@
-# FiberNLSE.jl V1.0.0
+# FiberNLSE.jl V1.1.1
 
 This version aims on the optimization of the integration, a more robust and rich API to parameterize the simulations.
 
@@ -7,20 +7,22 @@ This version aims on the optimization of the integration, a more robust and rich
 ## Features
 
 * [x] Create Fiber structure
-* [ ] Clean and pragmatic datastructures
+* [x] Clean and pragmatic datastructures
 * [ ] Refactor the simulation API
-
-# FiberNLSE.jl V1.1.0
-
-This version aims on the optimization of the integration, a more robust and rich API to parameterize the simulations.
-
----
-
-## Features
-
 * [ ] Create a documentation (ReadTheDocs/codecov)
 * [ ] Implement RK4 algorithm
 
+---
 
-# Later
-* [ ] Add higher order dispersion and custum profiles
+## Cleanup and repair
+
+* [ ] Cleanup files
+* [x] Cleanup deps
+* [ ] Create examples
+* [ ] Add more tests
+
+---
+
+## Later
+
+* [ ] Add higher order dispersion
