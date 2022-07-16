@@ -3,7 +3,7 @@
 <img src="images/logo.png" />
 </p>
 
-# [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6331654.svg)](https://doi.org/10.5281/zenodo.6331654) [![CI](https://github.com/curio-sitas/FiberNlse.jl/actions/workflows/build_pkg_tests.yml/badge.svg?event=push)](https://github.com/curio-sitas/FiberNlse.jl/actions/workflows/build_pkg_tests.yml)
+# [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6331654.svg)](https://doi.org/10.5281/zenodo.6331654) [![codecov](https://codecov.io/gh/curio-sitas/FiberNlse.jl/branch/main/graph/badge.svg?token=O9L9P064J1)](https://codecov.io/gh/curio-sitas/FiberNlse.jl) [![CI](https://github.com/curio-sitas/FiberNlse.jl/actions/workflows/CI.yml/badge.svg)](https://github.com/curio-sitas/FiberNlse.jl/actions/workflows/CI.yml)
  A non-linear Schrödinger equation solver for julia aimed towards fiber optics. (🚧 Under development)
 
 ## Features
@@ -13,19 +13,6 @@ The *FiberNlse.jl* package simulates the propagation of an optical field envelop
 The core of the simulation consists in the integration of the *Non-Linear Schrödinger Equation* with the desired signal as initial condition.
 
 ---
-
-## Examples
-### Sech² Soliton
-One can simulate the propagation of sech² soliton (order N=2) in an SMF-28 optical fiber by typing the following script :
-![sech2_code](images/sech2_code.png)
-
-Wich gives the following result :
-![sech2_plot](images/sech2_plot.png)
-
-### Self-phase modulation
-### Time-lens compression
-### Other types of solitons
-### Soliton collision ? (Maybe)
 
 ## Installation
 To install you can simply type :
@@ -64,4 +51,3 @@ Please cite this repository if you use it to publish data in a research paper.
 }
 ```
 
-### source : https://www.fiberoptics4sale.com/blogs/wave-optics/solitons-in-optical-fibers
