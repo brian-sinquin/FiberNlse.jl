@@ -9,7 +9,7 @@ function propagate(ψ₀::Vector{ComplexF64}, fib::Fiber, T::Float64, Nₗ::Int)
     γ = fib.γ
     ν = FFTW.fftfreq(Nₜ, 1. /dt)
 
-    if typeof(fib.D.βₛ)==Float64 D̂ = @. fib.D.βₛ * 2im * ( pi * ν)^2 end
+    if typeof(fib.D.β)==Float64 D̂ = @. fib.D.β * 2im * ( pi * ν)^2 end
 
     N̂(u) = @. abs(u)^2 * γ * im
 
@@ -32,4 +32,12 @@ function propagate(ψ₀::Vector{ComplexF64}, fib::Fiber, T::Float64, Nₗ::Int)
     end
     Field(ψ, l, t)
 
+end
+
+function propagate(ψ₀::Vector{ComplexF64}, fibs::Vector{Fiber}, T::Float64, Nₗ::Int)
+   field = propagate(ψ₀, fibs[1], T, Nₗ)
+   for i in 2:length(fibs) 
+        field = concatf(field,propagate(output(field), fibs[i], T, Nₗ))
+   end
+   field
 end

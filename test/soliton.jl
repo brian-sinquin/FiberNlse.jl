@@ -14,12 +14,13 @@ fib = smf28(L, λ)
 t = (0:Nₜ-1)*T/Nₜ .- 0.5T
 
 # Input construction
-P₀ =  abs((fib.D.βₛ[1]/fib.γ/τ^2)*N^2) # Soliton power
+P₀ =  abs((fib.D.β[1]/fib.γ/τ^2)*N^2) # Soliton power
 Ψₒ = @. 0im .+ sqrt(P₀)/cosh(t/τ) # Soliton formula
 
 
 
-field=propagate(Ψₒ , fib, T, Nₗ) # run the simulation
+field=propagate(Ψₒ , [fib,fib], T, Nₗ) # run the simulation
 
 # Testing soliton propagation (including losses)
-@test isapprox(abs2.(Ψₒ.*exp(-0.5*fib.α*L)), abs2.(field.ψ[end,:]), atol=1e-5)
+@test isapprox(abs2.(Ψₒ.*exp(-fib.α*L)), abs2.(field.ψ[end,:]), atol=1e-5)
+
