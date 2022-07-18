@@ -1,4 +1,4 @@
-function propagate(ψ₀::Vector{ComplexF64}, fib::Fiber, T::Float64, Nₗ::Int)
+function propagate(ψ₀::Union{Vector{ComplexF64},Vector{Float64}}, fib::Fiber, T::Float64, Nₗ::Int)
     Nₜ=length(ψ₀)
     dt,dz = T/Nₜ, fib.L/Nₗ
 
@@ -21,7 +21,7 @@ function propagate(ψ₀::Vector{ComplexF64}, fib::Fiber, T::Float64, Nₗ::Int)
     #end
 
     ψ = Matrix{ComplexF64}(zeros((Nₗ, Nₜ)))
-    ψ[1,:] = ψ₀
+    ψ[1,:] = complex(ψ₀)
 
     for i in 2:Nₗ
 
@@ -34,7 +34,7 @@ function propagate(ψ₀::Vector{ComplexF64}, fib::Fiber, T::Float64, Nₗ::Int)
 
 end
 
-function propagate(ψ₀::Vector{ComplexF64}, fibs::Vector{Fiber}, T::Float64, Nₗ::Int)
+function propagate(ψ₀::Union{Vector{ComplexF64},Vector{Float64}}, fibs::Vector{Fiber}, T::Float64, Nₗ::Int)
    field = propagate(ψ₀, fibs[1], T, Nₗ)
    for i in 2:length(fibs) 
         field = concatf(field,propagate(output(field), fibs[i], T, Nₗ))
