@@ -13,6 +13,15 @@ struct Field
     t::Vector{Float64}
 end
 
+"""
+    output(f::Field)
 
+    returns the signal at the end of the propagation
+"""
+function output(f::Field) f.ψ[end,:] end
 
+#(f1::Field,f2::Field) = concatf(f1,f2)
 
+function concatf(f1::Field,f2::Field) 
+    Field(vcat(f1.ψ, f2.ψ), vcat(f1.l,f2.l.+f1.l[end]), f2.t)
+end

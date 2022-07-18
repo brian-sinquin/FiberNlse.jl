@@ -1,5 +1,5 @@
 """
-    Dispersion(βₛ::Union{Float64,Vector{Float64}})
+    Dispersion(β::Union{Float64,Vector{Float64}})
 
     Structure containing dispersion caracteristics for the fiber
     
@@ -7,7 +7,7 @@
     
 """
 struct Dispersion
-    βₛ::Union{Float64,Vector{Float64}}
+    β::Union{Float64,Vector{Float64}}
 end
 
 """
@@ -20,4 +20,26 @@ end
 """
 function dispersion(D::Float64, λ::Float64)
     Dispersion(-D * λ^2 / (2pi * c))
+end
+
+"""
+    dispersion(β::Float64)
+
+    Generates the Dispersion structure for a fiber
+    - β : second derivative of the propagation contants
+
+"""
+function dispersion(β::Float64)
+    Dispersion(β)
+end
+
+"""
+    dispersion(β::Vector{Float64})
+
+    Generates the Dispersion structure for a fiber
+    - β : nth derivative of the propagation contants from 2 to n
+
+"""
+function dispersion(β::Vector{Float64})
+    Dispersion(β)
 end
