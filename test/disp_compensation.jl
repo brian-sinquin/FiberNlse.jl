@@ -1,6 +1,6 @@
 @testset "Dispersion compensation" begin
     # Simulation dimension
-    Nₜ, Nₗ = (1000,1000);
+    Nₜ, Nₗ = (2000,2000);
 
     # Fiber properties
     L = 2.0e3; # Fiber length
@@ -21,10 +21,10 @@
 
 
 
-    field=propagate(Ψₒ , [fib1,fib2], T, Nₗ) # run the simulation
+    field=propagate(Ψₒ, [fib1,fib2], T, Nₗ) # run the simulation
 
 
     # Testing soliton propagation (including losses)
-    @test isapprox(Ψₒ, field.ψ[end,:], atol=1e-13)
+    @test isapprox(Ψₒ, field.ψ[end,:])
 
 end

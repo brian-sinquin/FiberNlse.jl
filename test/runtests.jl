@@ -4,7 +4,8 @@ using FiberNlse
 
 tests = [
     "soliton",
-    "disp_compensation"
+    "disp_compensation",
+    "spm"
 ]
 
 const testdir = dirname(@__FILE__)
