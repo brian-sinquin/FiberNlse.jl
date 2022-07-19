@@ -8,7 +8,7 @@ ispath(MD_OUTPUT) && rm(MD_OUTPUT; recursive=true)
 
 for file in readdir(EXAMPLES; join=true)
     endswith(file, ".jl") || continue
-    Literate.markdown(file, MD_OUTPUT; documenter=true, preprocess=preprocess)
+    Literate.markdown(file, MD_OUTPUT; documenter=true)
 end
 
 makedocs(
