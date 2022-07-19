@@ -15,7 +15,7 @@ makedocs(
     sitename = "FiberNlse",
     format = Documenter.HTML(),
     modules = [FiberNlse],
-    authors=["Brian Sinquin"],
+    authors="Brian Sinquin",
     pages=[
         "Home" => "index.md",
         "Theoretical Background" => "theory.md",
