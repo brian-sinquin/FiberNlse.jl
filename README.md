@@ -24,12 +24,11 @@ in your julia terminal or clone this repository and include the `src/FiberNlse.j
 ## Roadmap
 
 - [x] Implement Split-Step Method
-- [x] Add progress bar option
 - [x] Register DOI
-- [ ] Document code
+- [x] Document code
 - [x] Setup continuous integration
+- [ ] Add progress bar option
 - [ ] Add non constant dispersion (and higher order dispersion)
-- [ ] Create a documentation page (mdbook ?)
 - [ ] Higher order integral solver (**DifferentialEquations.jl**)
 - [ ] Add more non-linear processes (Raman & Brillouin scattering)
 
@@ -45,7 +44,6 @@ Please cite this repository if you use it to publish data in a research paper.
   month        = mar,
   year         = 2022,
   publisher    = {Zenodo},
-  version      = {1.0.0},
   doi          = {10.5281/zenodo.6331654},
   url          = {https://doi.org/10.5281/zenodo.6331654}
 }

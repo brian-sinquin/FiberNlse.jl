@@ -3,7 +3,9 @@ using FiberNlse
 
 
 tests = [
-    "soliton"
+    "soliton",
+    "disp_compensation",
+    "spm"
 ]
 
 const testdir = dirname(@__FILE__)
@@ -11,7 +13,5 @@ const testdir = dirname(@__FILE__)
 
 for t in tests
     tp = joinpath(testdir, "$(t).jl")
-    @testset "$(t)" begin
-      include(tp)
-    end
+    include(tp)
 end
