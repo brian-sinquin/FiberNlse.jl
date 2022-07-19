@@ -32,4 +32,5 @@ deploydocs(
     repo = "github.com/curio-sitas/FiberNlse.jl.git",
     target="build",
     push_preview=true,
+    devbranch="dev",
 )
