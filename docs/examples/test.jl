@@ -1,4 +1,5 @@
 # # Test Literate
+using Plots
 x = 1:0.1:50
 y = cos.(x)
 # The result is :
