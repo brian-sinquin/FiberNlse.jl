@@ -8,5 +8,6 @@ DSP = "717857b8-e6f2-59f4-9121-6e50c889abd2"
 FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
 
 [compat]
+DSP = "0.7"
 FFTW = "1"
 julia = "1"
