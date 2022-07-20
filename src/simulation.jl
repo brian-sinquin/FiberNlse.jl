@@ -22,6 +22,21 @@ function propagate(ψ₀::Union{Vector{ComplexF64},Vector{Float64}}, fib::Fiber,
 
     ψ = Matrix{ComplexF64}(zeros((Nₗ, Nₜ)))
     ψ[1,:] = complex(ψ₀)
+    #= self.fr, RT = setup.raman_model(self.t)
+    self.RW = self.N * np.fft.ifft(np.fft.fftshift(np.transpose(RT)))
+    IT = np.abs(At)**2
+
+    if self.RW is not None:
+        X[:] = IT
+        plan_inverse()
+        x[:] *= self.RW
+        plan_forward()
+        RS = dt * self.fr * X
+        X[:] = At * ((1 - self.fr) * IT + RS)
+        M = plan_inverse()
+    else:
+        X[:] = At * IT
+        M = plan_inverse() =#
 
     for i in 2:Nₗ
 
@@ -36,7 +51,7 @@ end
 
 function propagate(ψ₀::Union{Vector{ComplexF64},Vector{Float64}}, fibs::Vector{Fiber}, T::Float64, Nₗ::Int)
    field = propagate(ψ₀, fibs[1], T, Nₗ)
-   for i in 2:length(fibs) 
+   for i in 2:length(fibs)
         field = concatf(field,propagate(output(field), fibs[i], T, Nₗ))
    end
    field
