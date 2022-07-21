@@ -11,7 +11,8 @@ function propagate(ψ₀::Union{Vector{ComplexF64},Vector{Float64}}, fib::Fiber,
 
     if typeof(fib.D.β)==Float64 D̂ = @. fib.D.β * 2im * ( pi * ν)^2 end
 
-    N̂(u) = @. abs(u)^2 * γ * im
+
+    N̂(u) =  γ*im .* (abs.(u).^2 .-ifft(ν.*fft(u.*abs.(u).^2)).*fib.λ/c)
 
     # Check wether to show progressbar or not
     #if progress

@@ -3,7 +3,7 @@ and Govind P. Agrawal model.
 Parameters
  ----------
 T : float
-    Time vector.
+    Time vector in [ps].
 Returns
 -------
 fr : float
@@ -12,7 +12,7 @@ RT : ndarray
    Vector representing Raman response.
 """
 function raman_linagrawal(T)
-
+    #TODO verify the reference (Nonlinear Fiber Optics, Agrawal)
     # Raman response [arbitrary units]
     fr = 0.245
     # Adjustable parameters used to fit the actual Raman gain spectrum [ps]
@@ -33,7 +33,14 @@ function raman_linagrawal(T)
     # Total Raman response
     RT = @. (fa + fc) * ha + fb * hb
 
-    RT[findall(T .< 0)] .= 0
+    #RT[findall(T .< 0)] .= 0
 
     return fr, RT
 end
+
+#= using Plots
+using FFTW
+t = (0:0.0001:0.8)
+ft,h = raman_linagrawal(t)
+plot(t,h)
+ =#

@@ -23,7 +23,7 @@ T = 2/(f₀) # Signal duration
 t = T*(0:Nₜ-1)/Nₜ # Time vector
 ψ₀ = @. 0*1im .+ sqrt(Pp)*cos(2pi*f₀*t)
 
-fib = Fiber(L, dispersion(D, λ),γ,α)
+fib = Fiber(L, dispersion(D, λ),γ,α,λ)
 field = propagate(ψ₀,fib,T,Nₗ)
 
 φ = DSP.unwrap(angle.(field.ψ[end,:]),range=pi)
