@@ -34,7 +34,7 @@ in your julia terminal or clone this repository and include the `src/FiberNlse.j
 - [x] Setup continuous integration
 - [ ] Add progress bar option
 - [ ] Add non constant dispersion (and higher order dispersion)
-- [ ] Higher order integral solver (**DifferentialEquations.jl**)
+- [ ] ~Higher order integral solver (**DifferentialEquations.jl**)~
 - [ ] Add more non-linear processes (Raman & Brillouin scattering)
 
 ## Citation
