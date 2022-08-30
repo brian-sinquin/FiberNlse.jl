@@ -24,7 +24,8 @@
     field=propagate(Ψₒ, [fib1,fib2], T, Nₗ) # run the simulation
 
     field = propagate(Ψₒ, [fib1, fib2], T, Nₗ) # run the simulation
-
+    field = propagate(Ψₒ, [fib1, fib2], T, Nₗ) # run the simulation
+    field = propagate(Ψₒ, [fib1, fib2], T, Nₗ) # run the simulation
     # Testing soliton propagation (including losses)
     @test isapprox(Ψₒ, field.ψ[end, :])
 end
