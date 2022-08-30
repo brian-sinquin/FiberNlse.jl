@@ -51,9 +51,15 @@ function propagate(
     return Field(ψ, l, t)
 end
 
-function propagate(ψ₀::Union{Vector{ComplexF64},Vector{Float64}}, fibs::Vector{Fiber}, T::Float64, Nₗ::Int; progress=false)
-   field = propagate(ψ₀, fibs[1], T, Nₗ; progress)
-   for i in 2:length(fibs)
+function propagate(
+    ψ₀::Union{Vector{ComplexF64},Vector{Float64}},
+    fibs::Vector{Fiber},
+    T::Float64,
+    Nₗ::Int;
+    progress=false,
+)
+    field = propagate(ψ₀, fibs[1], T, Nₗ; progress)
+    for i in 2:length(fibs)
         #TODO enhance matrix allocation
         field = concatf(field,propagate(output(field), fibs[i], T, Nₗ; progress))
    end
