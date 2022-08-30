@@ -1,5 +1,4 @@
 @testset "Self-Phase Modulation" begin
-    using DSP
 
     # Simulation dimension
     Nₜ, Nₗ = (2049, 5000)
