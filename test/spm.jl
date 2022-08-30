@@ -2,13 +2,13 @@
     using DSP
 
     # Simulation dimension
-    Nₜ, Nₗ = (2049,5000);
+    Nₜ, Nₗ = (2049, 5000)
 
     # Fiber properties
 
-    D = 0*0.9e-6
-    α = 0*0.026e-3
-    γ =  10.1e-3
+    D = 0 * 0.9e-6
+    α = 0 * 0.026e-3
+    γ = 10.1e-3
     L = 100.0
 
     # Signal properties
