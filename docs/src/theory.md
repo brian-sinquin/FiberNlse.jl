@@ -1,15 +1,14 @@
 # Theory
 
-# Kerr nonlinearity in fibers
+## Kerr nonlinearity in fibers
 
-## Physical origins
+### Physical origins
 
 ## Effects
 
 ### Self-phase modulation
 
 ### Four-wave mixing
-
 
 ## Modelization
 
