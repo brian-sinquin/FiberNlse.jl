@@ -40,7 +40,7 @@ function propagate(
     end
 
     ψ = Matrix{ComplexF64}(zeros((Nₗ, Nₜ)))
-    ψ[1,:] = complex(ψ₀)
+    ψ[1, :] = complex(ψ₀)
 
     for i in iter
         #TODO enhance matrix allocation (plan_fft)
