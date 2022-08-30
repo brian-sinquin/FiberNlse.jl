@@ -21,7 +21,7 @@ function propagate(
     if typeof(fib.D.β) == Float64
         D̂ = @. fib.D.β * 2im * (pi * ν)^2
     else
-        D̂ = zeros(length(ν)) .+ 0 .*im
+        D̂ = zeros(length(ν)) .+ 0 .* im
         for i in 1:length(fib.D.β)
             D̂ = D̂ .- fib.D.β[i] .* (im)^(i) .* (2pi.*im.* ν).^(i+1)./factorial(i+1)
         end
