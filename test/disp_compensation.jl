@@ -1,6 +1,6 @@
 @testset "Dispersion compensation" begin
     # Simulation dimension
-    Nₜ, Nₗ = (2000,2000);
+    Nₜ, Nₗ = (2000, 2000)
 
     # Fiber properties
     L = 2.0e3 # Fiber length
@@ -16,7 +16,7 @@
     t = (0:(Nₜ - 1)) * T / Nₜ .- 0.5T
 
     # Input construction
-    P₀ =  1e-3
+    P₀ = 1e-3
     Ψₒ = @. sqrt(P₀) / cosh(t / τ) # Soliton formula
 
     field = propagate(Ψₒ, [fib1, fib2], T, Nₗ) # run the simulation
