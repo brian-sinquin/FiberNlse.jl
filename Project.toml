@@ -1,7 +1,7 @@
 name = "FiberNlse"
 uuid = "21c1a3e3-8543-4069-a1c4-5ed3e2bf6e2f"
 authors = ["curio-sitas <paradisepx@gmail.com>"]
-version = "1.1.2"
+version = "1.1.1"
 
 [deps]
 DSP = "717857b8-e6f2-59f4-9121-6e50c889abd2"
