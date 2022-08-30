@@ -10,8 +10,8 @@ function propagate(
     Nₜ = length(ψ₀)
     dt, dz = T / Nₜ, fib.L / Nₗ
 
-    t = (0:Nₜ-1)dt
-    l = (0:Nₗ-1)dz
+    t = (0:(Nₜ - 1))dt
+    l = (0:(Nₗ - 1))dz
 
     α = fib.α
     γ = fib.γ
