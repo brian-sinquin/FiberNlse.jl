@@ -37,5 +37,5 @@ end
     See also : (edfa)[@ref edfa]
 """
 function smf28(L::Float64, λ::Float64)
-    Fiber(L,dispersion(17e-6, λ), 1.1e-3, 0.046e-3, λ);
+    return Fiber(L, dispersion(17e-6, λ), 1.1e-3, 0.046e-3, λ)
 end
