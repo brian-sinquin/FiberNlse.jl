@@ -1,8 +1,14 @@
 using ProgressBars
 
-function propagate(ψ₀::Union{Vector{ComplexF64},Vector{Float64}}, fib::Fiber, T::Float64, Nₗ::Int; progress=false)
-    Nₜ=length(ψ₀)
-    dt,dz = T/Nₜ, fib.L/Nₗ
+function propagate(
+    ψ₀::Union{Vector{ComplexF64},Vector{Float64}},
+    fib::Fiber,
+    T::Float64,
+    Nₗ::Int;
+    progress=false,
+)
+    Nₜ = length(ψ₀)
+    dt, dz = T / Nₜ, fib.L / Nₗ
 
     t = (0:Nₜ-1)dt
     l = (0:Nₗ-1)dz
