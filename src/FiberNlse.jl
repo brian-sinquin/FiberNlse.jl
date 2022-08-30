@@ -16,7 +16,7 @@ m = W = 1
 c = 299792458 # m/s
 
 export Fiber, Dispersion, Field, dispersion, smf28, edfa, propagate, output, concatf
-export ps,pm,ns,nm,mW,mm,ms,m,W,km,kHz,GHz,THz
+export ps, pm, ns, nm, mW, mm, ms, m, W, km, kHz, GHz, THz
 
 include("spacetime.jl")
 include("dispersion.jl")
