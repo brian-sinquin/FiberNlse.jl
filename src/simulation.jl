@@ -10,6 +10,8 @@ function propagate(
     Nₜ = length(ψ₀)
     dt, dz = T / Nₜ, fib.L / Nₗ
 
+    #TODO check for stability between dz and dt
+
     t = (0:(Nₜ-1))dt
     l = (0:(Nₗ-1))dz
 
@@ -50,6 +52,8 @@ function propagate(
     end
     return Field(ψ, l, t)
 end
+
+#! TODO create a _propagate! function that only record the simulation in the matrix parameter
 
 function propagate(
     ψ₀::Union{Vector{ComplexF64},Vector{Float64}},
