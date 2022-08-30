@@ -22,13 +22,13 @@ fib = FiberNlse.Fiber(
     λ,
 );
 fib.D
-t = (0:(Nₜ - 1)) * T / Nₜ .- 0.5T
+t = (0:(Nₜ-1)) * T / Nₜ .- 0.5T
 
 # Input construction
 P₀ = 30#abs((fib.D.β[1]/fib.γ/τ^2)*N^2) # Soliton power
 Ψₒ = @. sqrt(P₀) / cosh(t / τ) # Soliton formula
 
-field = FiberNlse.propagate(Ψₒ, [fib, fib], T, Nₗ; progress=true); # run the simulation
+field = FiberNlse.propagate(Ψₒ, [fib, fib], T, Nₗ; progress = true); # run the simulation
 
 begin
     plot(abs2.(field.ψ[end, :]))
@@ -37,4 +37,4 @@ end
 sum(abs2.(Ψₒ))
 sum(abs2.(field.ψ[end, :]))
 # Testing soliton propagation (including losses)
-@test isapprox(abs2.(Ψₒ .* exp(-fib.α * L)), abs2.(field.ψ[end, :]), atol=1e-5)
+@test isapprox(abs2.(Ψₒ .* exp(-fib.α * L)), abs2.(field.ψ[end, :]), atol = 1e-5)

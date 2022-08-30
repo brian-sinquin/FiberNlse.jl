@@ -18,7 +18,9 @@ end
 
     returns the signal at the end of the propagation
 """
-function output(f::Field) f.ψ[end,:] end
+function output(f::Field)
+    f.ψ[end, :]
+end
 
 #(f1::Field,f2::Field) = concatf(f1,f2)
 
