@@ -23,7 +23,9 @@ function propagate(
     else
         D̂ = zeros(length(ν)) .+ 0 .* im
         for i in 1:length(fib.D.β)
-            D̂ = D̂ .- fib.D.β[i] .* (im)^(i) .* (2pi.*im.* ν).^(i+1)./factorial(i+1)
+            D̂ =
+                D̂ .-
+                fib.D.β[i] .* (im)^(i) .* (2pi .* im .* ν) .^ (i + 1) ./ factorial(i + 1)
         end
     end
 
