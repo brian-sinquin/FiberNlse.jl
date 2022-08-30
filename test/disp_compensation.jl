@@ -25,6 +25,5 @@
 
 
     # Testing soliton propagation (including losses)
-    @test isapprox(Ψₒ, field.ψ[end,:])
-
+    @test isapprox(Ψₒ, field.ψ[end, :])
 end
