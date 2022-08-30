@@ -1,12 +1,8 @@
 using Test
 using FiberNlse
+using DSP
 
-
-tests = [
-    "soliton",
-    "disp_compensation",
-    "spm"
-]
+tests = ["soliton", "disp_compensation", "spm"]
 
 const testdir = dirname(@__FILE__)
 
