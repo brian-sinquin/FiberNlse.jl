@@ -17,7 +17,7 @@ Documentation : [![](https://img.shields.io/badge/docs-stable-blue.svg)](https:/
 
 The *FiberNlse.jl* package simulates the propagation of an optical field envelope signal of duration **T** in an optical fiber of length *L*. The chromatic dispersion (**D**) and SPM (self-phase modulation) (**γ**) wich arises from **Kerr** non-linearity are taken as parameters.
 
-The core of the simulation consists in the integration of the *Non-Linear Schrödinger Equation* with the desired signal as initial condition.
+The core of the simulation consists in the integration of the *Non-Linear Schrödinger Equation* with the desired signal as initial condition. The package uses the Fourier Split-Step Method algorithm. 
 
 ---
 
@@ -34,8 +34,9 @@ in your julia terminal or clone this repository and include the `src/FiberNlse.j
 - [x] Register DOI
 - [x] Document code
 - [x] Setup continuous integration
-- [ ] Add progress bar option
-- [ ] Add non constant dispersion (and higher order dispersion)
+- [x] Add progress bar option
+- [x] Add non constant dispersion (and higher order dispersion)
+- [x] Add Self-steepening
 - [ ] Higher order integral solver (**DifferentialEquations.jl**)
 - [ ] Add more non-linear processes (Raman & Brillouin scattering)
 

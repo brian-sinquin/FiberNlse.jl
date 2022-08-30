@@ -3,26 +3,28 @@ using .FiberNlse
 using Plots
 
     # Simulation dimension
-    Nₜ, Nₗ = (10000,5000);
+    Nₜ, Nₗ = (2000,5000);
 
     # Fiber properties
-    L = 5e3; # Fiber length
+    L = 20e3; # Fiber length
 
     # Signal properties
-    T = 1e-12; # Signal duration
+    T = 100e-12; # Signal duration
     λ = 1550e-9; # Wavelength
-    τ = 0.01e-12; # Pulse duration
+    τ = 1e-12; # Pulse duration
     N = 1 # Soliton number
 
-    fib =FiberNlse.Fiber(L,FiberNlse.dispersion(0.0001e-6, λ), 1/1000, 0,λ);
+    fib =FiberNlse.Fiber(L,FiberNlse.Dispersion([-2.5508963989899877e-26,-0.5508963989899877e-39]), 1/1000, 0,λ);
+    fib.D
     t = (0:Nₜ-1)*T/Nₜ .- 0.5T
 
     # Input construction
-    P₀ =  1#abs((fib.D.β[1]/fib.γ/τ^2)*N^2) # Soliton power
+    P₀ =  30#abs((fib.D.β[1]/fib.γ/τ^2)*N^2) # Soliton power
     Ψₒ = @. sqrt(P₀)/cosh(t/τ) # Soliton formula
 
 
-    field=FiberNlse.propagate(Ψₒ , [fib,fib], T, Nₗ) # run the simulation
+    field=FiberNlse.propagate(Ψₒ , [fib,fib], T, Nₗ; progress=true); # run the simulation
+
 
 
 

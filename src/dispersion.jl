@@ -2,9 +2,9 @@
     Dispersion(β::Union{Float64,Vector{Float64}})
 
     Structure containing dispersion caracteristics for the fiber
-    
-    Can contain the dispersion only (second derivative of the propagation constant) or a list of slopes from second order to nth order 
-    
+
+    Can contain the dispersion only (second derivative of the propagation constant) or a list of slopes from second order to nth order
+
 """
 struct Dispersion
     β::Union{Float64,Vector{Float64}}
@@ -26,7 +26,7 @@ end
     dispersion(β::Float64)
 
     Generates the Dispersion structure for a fiber
-    - β : second derivative of the propagation contants
+    - β : second derivative of the propagation constants
 
 """
 function dispersion(β::Float64)
@@ -37,7 +37,7 @@ end
     dispersion(β::Vector{Float64})
 
     Generates the Dispersion structure for a fiber
-    - β : nth derivative of the propagation contants from 2 to n
+    - β : nth derivative of the propagation constants from 2 to n
 
 """
 function dispersion(β::Vector{Float64})

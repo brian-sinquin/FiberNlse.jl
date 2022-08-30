@@ -21,8 +21,8 @@ export ps,pm,ns,nm,mW,mm,ms,m,W,km,kHz,GHz,THz
 include("spacetime.jl")
 include("dispersion.jl")
 include("fiber.jl")
-include("raman.jl")
 include("simulation.jl")
 include("analysis.jl")
+include("utils.jl")
 
 end
