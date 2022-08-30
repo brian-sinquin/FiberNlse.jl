@@ -11,7 +11,6 @@ GHz = 1e9
 THz = 1e12
 m = W = 1
 
-
 # light speed in vaccum
 c = 299792458 # m/s
 
