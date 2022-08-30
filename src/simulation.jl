@@ -29,7 +29,6 @@ function propagate(
         end
     end
 
-
     # Nonlinear operator including self-steepening
     N̂(u) =  γ*im .* (abs.(u).^2 .-ifft(ν.*fft(u.*abs.(u).^2)).*fib.λ/c)
 
