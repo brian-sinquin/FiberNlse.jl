@@ -33,9 +33,8 @@ field = FiberNlse.propagate(Ψₒ, [fib, fib], T, Nₗ; progress=true); # run th
 begin
     plot(abs2.(field.ψ[end, :]))
     plot!(abs2.(Ψₒ))
-
-    end
-    sum(abs2.(Ψₒ))
-    sum(abs2.(field.ψ[end,:]))
-    # Testing soliton propagation (including losses)
-    @test isapprox(abs2.(Ψₒ.*exp(-fib.α*L)), abs2.(field.ψ[end,:]), atol=1e-5)
+end
+sum(abs2.(Ψₒ))
+sum(abs2.(field.ψ[end, :]))
+# Testing soliton propagation (including losses)
+@test isapprox(abs2.(Ψₒ .* exp(-fib.α * L)), abs2.(field.ψ[end, :]), atol=1e-5)
