@@ -13,7 +13,7 @@
     fib1 = Fiber(L,dispersion(17e-6, λ), 0, 0,λ); # Anormal dispersion
     fib2 = Fiber(L,dispersion(-17e-6, λ), 0, 0,λ); # Normal dispersion
 
-    t = (0:Nₜ-1)*T/Nₜ .- 0.5T
+    t = (0:(Nₜ - 1)) * T / Nₜ .- 0.5T
 
     # Input construction
     P₀ =  1e-3
