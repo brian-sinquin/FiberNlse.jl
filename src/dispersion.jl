@@ -19,7 +19,7 @@ end
 
 """
 function dispersion(D::Float64, λ::Float64)
-    Dispersion(-D * λ^2 / (2pi * c))
+    return Dispersion(-D * λ^2 / (2pi * c))
 end
 
 """
@@ -30,7 +30,7 @@ end
 
 """
 function dispersion(β::Float64)
-    Dispersion(β)
+    return Dispersion(β)
 end
 
 """
