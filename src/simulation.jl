@@ -18,8 +18,8 @@ function propagate(
     ν = FFTW.fftfreq(Nₜ, 1.0 / dt)
 
     # Dispersion vector from propagation constants Taylor expansion around λ
-    if typeof(fib.D.β)==Float64
-        D̂ = @. fib.D.β * 2im * ( pi * ν)^2
+    if typeof(fib.D.β) == Float64
+        D̂ = @. fib.D.β * 2im * (pi * ν)^2
     else
         D̂ = zeros(length(ν)) .+ 0 .*im
         for i in 1:length(fib.D.β)
