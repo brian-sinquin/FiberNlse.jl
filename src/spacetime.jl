@@ -22,6 +22,6 @@ function output(f::Field) f.ψ[end,:] end
 
 #(f1::Field,f2::Field) = concatf(f1,f2)
 
-function concatf(f1::Field,f2::Field)
-    return Field(vcat(f1.ψ, f2.ψ), vcat(f1.l,f2.l.+f1.l[end]), f2.t)
+function concatf(f1::Field, f2::Field)
+    return Field(vcat(f1.ψ, f2.ψ), vcat(f1.l, f2.l .+ f1.l[end]), f2.t)
 end

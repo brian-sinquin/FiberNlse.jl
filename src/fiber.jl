@@ -25,8 +25,8 @@ end
     See also : (smf28)[@ref smf28]
 """
 function edfa(L::Float64, G::Float64, λ::Float64)
-    g  = 0.1 * log(10) * G / L
-    return Fiber(L, disperion(-10e-6, λ), 1.1e-3, -g, λ);
+    g = 0.1 * log(10) * G / L
+    return Fiber(L, disperion(-10e-6, λ), 1.1e-3, -g, λ)
 end
 
 """
