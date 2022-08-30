@@ -41,5 +41,5 @@ end
 
 """
 function dispersion(β::Vector{Float64})
-    Dispersion(β)
+    return Dispersion(β)
 end
