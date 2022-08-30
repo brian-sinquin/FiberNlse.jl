@@ -30,7 +30,7 @@ function propagate(
     end
 
     # Nonlinear operator including self-steepening
-    N̂(u) =  γ*im .* (abs.(u).^2 .-ifft(ν.*fft(u.*abs.(u).^2)).*fib.λ/c)
+    N̂(u) = γ * im .* (abs.(u) .^ 2 .- ifft(ν .* fft(u .* abs.(u) .^ 2)) .* fib.λ / c)
 
     # Check wether to show progressbar or not
     if progress
