@@ -48,8 +48,7 @@ function propagate(
         ψ[i, :] = exp.(dz * N̂(@view ψ[i, :])) .* (@view ψ[i, :])
         ψ[i, :] = ifft(exp.(0.5 * dz .* (D̂ .- 0.5α)) .* fft(@view ψ[i, :]))
     end
-    Field(ψ, l, t)
-
+    return Field(ψ, l, t)
 end
 
 function propagate(ψ₀::Union{Vector{ComplexF64},Vector{Float64}}, fibs::Vector{Fiber}, T::Float64, Nₗ::Int; progress=false)
