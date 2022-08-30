@@ -24,6 +24,5 @@
     field=propagate(Ψₒ , [fib,fib], T, Nₗ) # run the simulation
 
     # Testing soliton propagation (including losses)
-    @test isapprox(abs2.(Ψₒ.*exp(-fib.α*L)), abs2.(field.ψ[end,:]), atol=1e-5)
-
+    @test isapprox(abs2.(Ψₒ .* exp(-fib.α * L)), abs2.(field.ψ[end, :]), atol=1e-5)
 end
