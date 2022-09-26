@@ -1,26 +1,27 @@
 using Documenter, Literate
 using FiberNlse
 
-EXAMPLES = joinpath("../",@__DIR__, "examples")
+EXAMPLES = joinpath("../", @__DIR__, "examples")
 MD_OUTPUT = joinpath(@__DIR__, "src", "examples")
-ispath(MD_OUTPUT) && rm(MD_OUTPUT; recursive=true)
+ispath(MD_OUTPUT) && rm(MD_OUTPUT; recursive = true)
 
 
-for file in readdir(EXAMPLES; join=true)
+for file in readdir(EXAMPLES; join = true)
     endswith(file, ".jl") || continue
-    Literate.markdown(file, MD_OUTPUT; documenter=true)
+    Literate.markdown(file, MD_OUTPUT; documenter = true)
 end
 
 makedocs(
     sitename = "FiberNlse",
     format = Documenter.HTML(),
     modules = [FiberNlse],
-    authors="Brian Sinquin",
-    pages=[
+    authors = "Brian Sinquin",
+    pages = [
         "Home" => "index.md",
         "Theoretical Background" => "theory.md",
         "User Guide" => "userguide.md",
-        "Examples" =>  joinpath.("examples", filter(x -> endswith(x, ".md"), readdir(MD_OUTPUT))),
+        "Examples" =>
+            joinpath.("examples", filter(x -> endswith(x, ".md"), readdir(MD_OUTPUT))),
         "API" => "api.md",
     ],
 )
@@ -30,6 +31,6 @@ makedocs(
 # for more information.
 deploydocs(;
     repo = "github.com/curio-sitas/FiberNlse.jl.git",
-    target="build",
-    push_preview=true,
+    target = "build",
+    push_preview = true,
 )

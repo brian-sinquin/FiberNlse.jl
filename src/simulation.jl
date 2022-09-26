@@ -6,7 +6,10 @@ function propagate(
     T::Float64,
     Nₗ::Int;
     progress = false,
+    convention::Symbol = getPhaseConvention(),
 )
+
+    sign = getPhaseConventionSign(convention)
     Nₜ = length(ψ₀)
     dt, dz = T / Nₜ, fib.L / Nₗ
 
@@ -15,7 +18,7 @@ function propagate(
 
     α = fib.α
     γ = fib.γ
-    ν = FFTW.fftfreq(Nₜ, 1.0 / dt)
+    ν = 0.5 * ifftshift(LinRange(-1, 1, Nₜ)) / dt
 
     # Dispersion vector from propagation constants Taylor expansion around λ
     if typeof(fib.D.β) == Float64
@@ -29,8 +32,11 @@ function propagate(
         end
     end
 
+    D̂ = sign * D̂
+
     # Nonlinear operator including self-steepening
-    N̂(u) = γ * im .* (abs.(u) .^ 2 .- ifft(ν .* fft(u .* abs.(u) .^ 2)) .* fib.λ / c)
+    N̂(u) =
+        - sign * γ * im .* (abs.(u) .^ 2 .- ifft(ν .* fft(u .* abs.(u) .^ 2)) .* fib.λ / c)
 
     # Check wether to show progressbar or not
     if progress
@@ -44,9 +50,9 @@ function propagate(
 
     for i in iter
         #TODO enhance matrix allocation (plan_fft)
-        ψ[i, :] = ifft(exp.(0.5 * dz .* (D̂ .- 0.5α)) .* fft(@view ψ[i-1, :]))
+        ψ[i, :] = ifft(exp.(0.5 * dz .* (-D̂ .- 0.5α)) .* fft(@view ψ[i-1, :]))
         ψ[i, :] = exp.(dz * N̂(@view ψ[i, :])) .* (@view ψ[i, :])
-        ψ[i, :] = ifft(exp.(0.5 * dz .* (D̂ .- 0.5α)) .* fft(@view ψ[i, :]))
+        ψ[i, :] = ifft(exp.(0.5 * dz .* (-D̂ .- 0.5α)) .* fft(@view ψ[i, :]))
     end
     return Field(ψ, l, t)
 end
@@ -57,8 +63,9 @@ function propagate(
     T::Float64,
     Nₗ::Int;
     progress = false,
+    convention::Symbol = getPhaseConvention(),
 )
-    field = propagate(ψ₀, fibs[1], T, Nₗ; progress)
+    field = propagate(ψ₀, fibs[1], T, Nₗ; progress, convention)
     for i = 2:length(fibs)
         #TODO enhance matrix allocation
         field = concatf(field, propagate(output(field), fibs[i], T, Nₗ; progress))

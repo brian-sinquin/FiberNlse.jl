@@ -1,6 +1,7 @@
 using Test
-using FiberNlse
 using DSP
+
+using FiberNlse
 
 tests = ["soliton", "disp_compensation", "spm"]
 
