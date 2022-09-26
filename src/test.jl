@@ -4,7 +4,7 @@ using Plots, DSP
 
 ps = 1e-12
 t = (-100:0.1:100) * ps
-T = t[1] - t[end] |> abs
+T = abs(t[1] - t[end])
 t0 = 2ps
 
 E = @. 1e-10 * exp(-(t / t0)^2)
