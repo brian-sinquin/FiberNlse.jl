@@ -9,7 +9,7 @@
 
     See also : (smf28)[@ref smf28], (edfa)[@ref edfa]
 """
-struct Fiber
+mutable struct Fiber
     L::Float64
     D::Dispersion
     γ::Float64

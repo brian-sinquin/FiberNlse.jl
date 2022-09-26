@@ -1,5 +1,3 @@
-include("../src/FiberNlse.jl")
-using .FiberNlse
 using Plots
 
 # Simulation dimension

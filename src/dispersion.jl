@@ -6,7 +6,7 @@
     Can contain the dispersion only (second derivative of the propagation constant) or a list of slopes from second order to nth order
 
 """
-struct Dispersion
+mutable struct Dispersion
     β::Union{Float64,Vector{Float64}}
 end
 
