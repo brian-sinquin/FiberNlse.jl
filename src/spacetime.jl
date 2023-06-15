@@ -11,6 +11,8 @@ struct Field
     ψ::Matrix{ComplexF64}
     l::Vector{Float64}
     t::Vector{Float64}
+    AW::Matrix{ComplexF64}
+    W::Vector{Float64}
 end
 
 """

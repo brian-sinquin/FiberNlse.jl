@@ -1,5 +1,6 @@
 module FiberNlse
 using DSP: fft, ifft, ifftshift, fftshift, unwrap, rms
+using DifferentialEquations
 
 # Physical units & constants
 
@@ -9,28 +10,31 @@ km = kHz = 1e3
 mW = mm = ms = 1e-3
 GHz = 1e9
 THz = 1e12
-m = W = 1
+m = W = Hz = 1
 
 # light speed in vaccum
 c = 299792458 # m/s
 
+
+global phase_convention::Symbol = :positive
+
+
+
+
 export Fiber,
-    Dispersion, Field, dispersion, smf28, edfa, propagate, output, concatf, phase, instFreq
+    Dispersion, Field, dispersion, smf28, edfa, propagate, output, concatf, phase, instFreq, propagate4,derivate
 export ps, pm, ns, nm, mW, mm, ms, m, W, km, kHz, GHz, THz
 
-global DefaultPhaseConvention::Symbol
-global DefaultPhaseConvention = :positive
 
 function setPhaseConvention(conv::Symbol)
-    global DefaultPhaseConvention = conv
+    global phase_convention = conv
 end
 
-getPhaseConvention() = DefaultPhaseConvention
-function getPhaseConventionSign(conv::Symbol)
-    conv == :positive ? +1 : -1
-end
+getPhaseConvention() = phase_convention
+getPhaseConventionSign() = phase_convention == :positive ? +1 : -1
+getPhaseConventionSign(symbol::Symbol) = symbol == :positive ? +1 : -1
 
-
+include("core.jl")
 include("spacetime.jl")
 include("dispersion.jl")
 include("fiber.jl")

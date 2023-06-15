@@ -1,4 +1,5 @@
 @testset "Dispersion compensation" begin
+
     # Simulation dimension
     Nₜ, Nₗ = (2000, 2000)
 
@@ -17,7 +18,7 @@
 
     # Input construction
     P₀ = 1e-3
-    Ψₒ = @. sqrt(P₀) / cosh(t / τ) # Soliton formula
+    Ψₒ = @. sqrt(P₀) * sech(t / τ) .+ 0*1im # Soliton formula
 
     field = propagate(Ψₒ, [fib1, fib2], T, Nₗ) # run the simulation
 

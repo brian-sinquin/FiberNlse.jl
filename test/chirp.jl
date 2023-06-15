@@ -1,23 +1,26 @@
 using FiberNlse, Plots, StatsBase, DSP
 FiberNlse.setPhaseConvention(:negative)
-D = 0 *18e-6
-α = 0 * 0.026e-3
-γ = 0 *1.1e-3
-L = 1000.0
+D = 17e-6
+α = 0.026e-3
+γ = 0*1.1e-3
+L = 5000.0
 
 # Signal properties
 λ = 1550e-9 # Wavelength
 
-Nt, Nz = (5000,500)
+Nt, Nz = (2^10,200)
 T = 300e-12
-t0 = 20e-12
+t0 = 30e-12
 t = LinRange(-1,1,Nt)*T/2
-C = 1
-P0 = 0.1*5
-y = exp.(-((t./t0).^2) .*(1-im*C))
+
+LEF = -3.8
+P0 =0.08
+y = sqrt(P0).*exp.(-((t./t0).^2))
+y= y.*cis.(0.5*LEF*log.(abs2.(y)./abs2.(y[1])))
 S = sqrt(P0)*y./sqrt(mean(abs2.(y)))
 
-fib = Fiber(L, dispersion(D, λ), γ, α, λ)
+
+fib = Fiber(L, dispersion(-D, λ), γ, α, λ)
 field = propagate(S, fib, T, Nt)
 
 φ = instFreq(field.ψ[end, :],t)/1e9
@@ -26,8 +29,7 @@ field = propagate(S, fib, T, Nt)
 begin
     plot(t/ps,φ, label="end")
     plot!(t/ps,φₜₕ, label="begin")
-    xlims!(-50,50)
-    ylims!(-20,20)
+
 end
 
 begin
@@ -35,3 +37,5 @@ begin
     plot!(t/ps,S .|> abs2, label="begin")
     xlims!(-50,50)
 end
+
+heatmap(abs2.(field.ψ))

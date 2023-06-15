@@ -1,6 +1,6 @@
 using ProgressBars
 
-function propagate(
+function propagate_old(
     ψ₀::Union{Vector{ComplexF64},Vector{Float64}},
     fib::Fiber,
     T::Float64,
@@ -71,4 +71,26 @@ function propagate(
         field = concatf(field, propagate(output(field), fibs[i], T, Nₗ; progress))
     end
     return field
+end
+
+
+function propagate(
+    ψ₀::Union{Vector{ComplexF64},Vector{Float64}},
+    fib::Fiber,
+    T::Float64,
+    Nₗ::Int;
+    progress = false,
+    raman=false,
+    convention::Symbol = getPhaseConvention(),
+)
+
+    
+    Nₜ = length(ψ₀)
+    dt = T / Nₜ
+
+    t = (- Nₜ/2: Nₜ/2 - 1).*dt
+
+    Z, AT, AW, W= gnlseATAW(t,ψ₀,fib.λ,fib.γ, fib.D.β,fib.α, fib.L,Nₗ; progress=progress, raman=raman)
+    
+    return Field(AT, Z, t.-t[1],AW,W)
 end

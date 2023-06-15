@@ -1,7 +1,7 @@
 
 function phase(ψ; convention::Symbol = getPhaseConvention())
     sign = getPhaseConventionSign(convention)
-    sign * (ψ .|> angle |> unwrap)
+    sign * (unwrap(ψ .|> angle, range=pi))
 end
 
 function instFreq(ψ, t, convention::Symbol = getPhaseConvention())
