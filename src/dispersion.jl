@@ -18,7 +18,7 @@ end
     - λ : central wavelength of the study in m
 
 """
-function dispersion(D::Float64, λ::Float64)
+function dispersion(D::Union{Float64, Vector{Float64}}, λ::Float64)
     return Dispersion(-D * λ^2 / (2pi * c))
 end
 
