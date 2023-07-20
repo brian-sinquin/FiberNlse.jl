@@ -1,5 +1,6 @@
 @testset "Self-Phase Modulation" begin
 
+    #TODO : rewrite clean test
 
     # Simulation dimension
     Nz = 5000

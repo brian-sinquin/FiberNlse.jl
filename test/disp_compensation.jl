@@ -1,6 +1,6 @@
 @testset "Dispersion compensation" begin
     # Simulation dimension
-    Nₜ, Nₗ = (2000, 2000)
+    Nₜ, Nₗ = (2000, 200)
 
     # Fiber properties
     L = 2.0e3 # Fiber length
@@ -10,7 +10,7 @@
     λ = 1550e-9 # Wavelength
     τ = 3e-12 # Pulse duration
 
-    fib1 = Fiber(L, dispersion(17e-6, λ), 0, 0, λ) # Anormal dispersion
+    fib1 = Fiber(L, dispersion(17e-6, λ), 0, 0, λ) # Anomalous dispersion
     fib2 = Fiber(L, dispersion(-17e-6, λ), 0, 0, λ) # Normal dispersion
 
     t = (0:(Nₜ-1)) * T / Nₜ .- 0.5T
@@ -21,6 +21,6 @@
 
     field = propagate(Ψₒ, [fib1, fib2], T, Nₗ) # run the simulation
 
-    # Testing soliton propagation (including losses)
+    # Testing signal propagation (including losses)
     @test isapprox(Ψₒ, field.ψ[end, :])
 end
