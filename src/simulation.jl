@@ -19,13 +19,13 @@ function propagate(
     α = fib.α
     γ = fib.γ
     ν = fftshift(collect(-Nₜ/2:Nₜ/2-1)/(Nₜ*dt)); #frequency grid
-    ω = 2pi*ν; #frequency grid
+  
 
-    # Dispersion vector from propagation constants Taylor expansion around λ
-    D̂ = Λ .* sum(fib.D.β[i] .* (im)^(i) .* (1im .* ω) .^ (i + 1) ./ factorial(i + 1) for i in 1:length(fib.D.β))
+    # Linear Dispersion operator including losses
+    D̂ = Λ .* sum(fib.D.β[i] .* (im)^(i) .* (2π*im*ν) .^ (i + 1) ./ factorial(i + 1) for i in 1:length(fib.D.β))  .- 0.5α
 
-    # Nonlinear operator including self-steepening
-    N̂(u) = - Λ .* γ * im .* (abs.(u) .^ 2 .- ifft(ν .* fft(u .* abs.(u) .^ 2)) .* fib.λ / c)
+    # Nonlinear SPM only operator
+    N̂(u) = - Λ .* γ * im .* abs.(u) .^ 2
 
     # Check wether to show progressbar or not
     if progress
@@ -39,9 +39,9 @@ function propagate(
 
     for i in iter
         #TODO enhance matrix allocation (plan_fft)
-        ψ[i, :] = ifft(exp.(0.5 * dz .* (D̂ .- 0.5α)) .* fft(@view ψ[i-1, :]))
+        ψ[i, :] = ifft(exp.(0.5dz .* D̂) .* fft(@view ψ[i-1, :]))
         ψ[i, :] = exp.(dz * N̂(@view ψ[i, :])) .* (@view ψ[i, :])
-        ψ[i, :] = ifft(exp.(0.5 * dz .* (D̂ .- 0.5α)) .* fft(@view ψ[i, :]))
+        ψ[i, :] = ifft(exp.(0.5dz .* D̂) .* fft(@view ψ[i, :]))
     end
     return Field(ψ, l, t)
 end
