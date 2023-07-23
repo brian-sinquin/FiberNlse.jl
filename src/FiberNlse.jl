@@ -15,7 +15,7 @@ m = W = 1
 c = 299792458 # m/s
 
 export Fiber,
-    Dispersion, Field, dispersion, smf28, edfa, propagate, output, concatf, phase, instFreq
+    Dispersion, Field, dispersion, smf28, edfa, propagate, output, concatf, phase, instFreq, spectrum
 export ps, pm, ns, nm, mW, mm, ms, m, W, km, kHz, GHz, THz
 
 global DefaultPhaseConvention::Symbol

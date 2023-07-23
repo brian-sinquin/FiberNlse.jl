@@ -1,8 +1,11 @@
+using Revise
+
+
 using FiberNlse, Plots, StatsBase, DSP
 
 FiberNlse.setPhaseConvention(:positive)
 
-D = 0* 18e-6
+D = 18e-6
 α = 0.026e-3
 γ = 1.1e-3
 L = 1000.0
@@ -14,8 +17,8 @@ Nt, Nz = (5000,200)
 T = 300e-12
 t0 = 20e-12
 t = LinRange(-1,1,Nt)*T/2
-C = -1.0
-P0 = 0.1
+C = -0.8
+P0 = 0.2
 y = exp.(-((t./t0).^2) .*(1-im*C))
 S = sqrt(P0)*y./sqrt(mean(abs2.(y)))
 
@@ -37,3 +40,6 @@ begin
     plot!(t/ps,S .|> abs2, label="begin")
     xlims!(-50,50)
 end
+
+
+S = sqrt(P0)*(noise+cos(2pi*f0*t))

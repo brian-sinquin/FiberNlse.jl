@@ -14,10 +14,10 @@
 
     fib = smf28(L, λ)
     fib.α = 0
-    t = collect((-Nₜ÷2:Nₜ÷2-1) * T / Nₜ)
+    t = (-Nₜ÷2:Nₜ÷2-1) * T / Nₜ
 
     # Input construction
-    P₀ =abs((fib.D.β[1] / fib.γ / τ^2) * N^2) # Soliton power
+    P₀ = abs((fib.D.β[1] / fib.γ / τ^2) * N^2) # Soliton power
     Ψₒ = sqrt(P₀) * sech.(t ./ τ) # Soliton formula
 
     field = propagate(Ψₒ, [fib], T, Nₗ) # run the simulation

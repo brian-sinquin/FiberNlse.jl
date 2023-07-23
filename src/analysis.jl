@@ -9,5 +9,8 @@ function instFreq(ψ, t, convention::Symbol = getPhaseConvention())
 end
 
 function spectrum(ψ::Vector{ComplexF64}, dt)
-    return error("To implement")
+    N = length(ψ);
+    ν = collect(-N/2:N/2-1)/(N*dt);
+    sp = fftshift(fft(ψ)/N)
+    (ν,sp)
 end

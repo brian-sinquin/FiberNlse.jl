@@ -10,8 +10,8 @@
     λ = 1550e-9 # Wavelength
     τ = 3e-12 # Pulse duration
 
-    fib1 = Fiber(L, dispersion(17e-6, λ), 0, 0, λ) # Anomalous dispersion
-    fib2 = Fiber(L, dispersion(-17e-6, λ), 0, 0, λ) # Normal dispersion
+    fib1 = Fiber(L, dispersion(18e-6, λ), 0, 0, λ) # Anomalous dispersion
+    fib2 = Fiber(L, dispersion(-18e-6, λ), 0, 0, λ) # Normal dispersion
 
     t = (0:(Nₜ-1)) * T / Nₜ .- 0.5T
 
