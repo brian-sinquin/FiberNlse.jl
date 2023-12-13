@@ -38,7 +38,16 @@ in your julia terminal or clone this repository and include the `src/FiberNlse.j
 - [x] Add non constant dispersion (and higher order dispersion)
 - [x] Add Self-steepening
 - [ ] Higher order integral solver (**DifferentialEquations.jl**)
-- [ ] Add more non-linear processes (Raman & Brillouin scattering)
+
+     
+- ### Future version (1.2) -- (compatibility breaking)
+- [ ] Add wavelength dependence to dispersion
+- [ ] More complex material model API (GNLSE, Raman, SS, ...)
+- [ ] Many solvers (as in [pychi](https://github.com/pychi-code/pychi/tree/main))
+- [ ] Solver API (as **DifferentialEquations.jl**)
+- [ ] Better Data manipulation (maybe a standalone package?)
+- [ ] Make it compatible with **AD** for optimisation
+      
 
 ## Citation
 
