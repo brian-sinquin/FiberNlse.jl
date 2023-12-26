@@ -6,11 +6,11 @@ on:
       - main
     tags: '*'
 
-  concurrency:
-    # Skip intermediate builds: always.
-    # Cancel intermediate builds: always.
-    group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
+concurrency:
+  # Skip intermediate builds: always.
+  # Cancel intermediate builds: always.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
