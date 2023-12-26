@@ -1,46 +1,54 @@
 name: CI
 on:
   pull_request:
-    branches:
-      - main
   push:
     branches:
       - main
+    tags: '*'
+
+  concurrency:
+    # Skip intermediate builds: always.
+    # Cancel intermediate builds: always.
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
+    strategy:
       matrix:
         version:
-          - "1"
+          - "1.6"
           - "nightly"
     steps:
       - uses: actions/checkout@v3
       - uses: julia-actions/setup-julia@v1
         with:
           version: ${{ matrix.version }}
+          arch: ${{ matrix.arch }}
       - uses: julia-actions/cache@v1
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
       - uses: julia-actions/julia-processcoverage@v1
-        continue-on-error: true
       - uses: codecov/codecov-action@v1
         continue-on-error: true
         with:
           file: ./lcov.info
-          flags: unittests
+          
   docs:
     name: Documentation
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v2
-      - uses: julia-actions/setup-julia@v1
+      - uses: actions/checkout@v3
+      - uses: julia-actions/setup-julia@latest
         with:
           version: "1"
       - uses: julia-actions/julia-buildpkg@v1
-      - uses: julia-actions/julia-docdeploy@v1
+      - uses: julia-actions/julia-docdeploy@release/v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
