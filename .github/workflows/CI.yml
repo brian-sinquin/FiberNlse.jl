@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - "1.6"
+          - "1"
           - "nightly"
     steps:
       - uses: actions/checkout@v4
