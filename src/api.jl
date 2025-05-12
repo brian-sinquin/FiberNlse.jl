@@ -1,4 +1,4 @@
-function GNLSEProblem(t, wg::Waveguide)
+function GNLSEProblem(t::AbstractArray{Float64}, wg::Waveguide)
 
 	fftp = plan_fft(t, flags = FFTW.MEASURE)
 	ifftp = plan_ifft(t, flags = FFTW.MEASURE)
@@ -30,7 +30,7 @@ function _compute_error!(stepper::Stepper, a, b)
 	stepper.local_error = sqrt(sum(abs2.(a .- b)) ./ sum(abs2.(a)))
 end
 
-function _integrate_to_z(stepper, z, prob, maxiters, reltol)
+function _integrate_to_z(stepper::Stepper, z::Float64, prob::GNLSEProblem, maxiters::Int, reltol::Float64)
 	stepper.it = 0
 	while stepper.z < z
 		_erk4ip_step!(stepper, prob)
@@ -54,16 +54,17 @@ function _integrate_to_z(stepper, z, prob, maxiters, reltol)
 	end
 end
 
-function gnlse(u, t, prob::GNLSEProblem; nsaves = 20, dz = 1.0, reltol = 1e-6, maxiters = 1000)
+function gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, prob::GNLSEProblem; nsaves = 20, dz = 1.0, reltol = 1e-6, maxiters = 1000)
 
 	dz = min(prob.L / (2 * nsaves), dz)
+	k_init = similar(u)
 	# initial stepper
-	stepper = Stepper(prob.fftp * ComplexF64.(u), prob.nonlinear_function(u, prob), dz, 0.0, 0.0, nothing, nothing, nothing, nothing, nothing, nothing, nothing, nothing, nothing, nothing, 0)
+	stepper = Stepper(prob.fftp * u, prob.nonlinear_function(u, prob), dz, 0.0, 0.0, k_init, k_init, k_init, k_init, k_init, k_init, k_init, k_init, k_init, k_init, 0)
 	zsaves = (0:nsaves) * prob.L / nsaves
 	M = zeros(ComplexF64, (nsaves + 1, prob.N))
 	M[1, :] = stepper.U
 	ϵ_hist = zeros(nsaves + 1)
-	ϵ_hist[1] = 0.0
+
 
 	for i ∈ 2:nsaves+1
 		_integrate_to_z(stepper, zsaves[i], prob, maxiters, reltol)
@@ -74,11 +75,10 @@ function gnlse(u, t, prob::GNLSEProblem; nsaves = 20, dz = 1.0, reltol = 1e-6, m
 	return Solution(zsaves, t, prob.ω / 2pi, ifft(M, 2), M)
 end
 
-function gnlse(u, t, wg::Waveguide; args...)
-	gnlse(u, t, GNLSEProblem(t, wg); args...)
-end
+gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, wg::Waveguide; args...) = gnlse(u, t, GNLSEProblem(t, wg); args...)
 
-function gnlse(u, t, probs::Vector{GNLSEProblem}; args...)
+
+function gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, probs::Vector{GNLSEProblem}; args...)
 	sols = [gnlse(u, t, probs[1]; args...)]
 	for prob ∈ probs[2:end]
 		push!(sols, gnlse(sols[end].At[end, :], t, prob; args...))
@@ -86,7 +86,5 @@ function gnlse(u, t, probs::Vector{GNLSEProblem}; args...)
 	combine(sols)
 end
 
-function gnlse(u, t, wgs::Vector{Waveguide}; args...)
-	probs = [GNLSEProblem(t, wg) for wg in wgs]
-	gnlse(u, t, probs; args...)
-end
+gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, wgs::Vector{Waveguide}; args...) = gnlse(u, t, [GNLSEProblem(t, wg) for wg in wgs]; args...)
+
