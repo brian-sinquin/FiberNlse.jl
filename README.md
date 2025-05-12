@@ -48,8 +48,7 @@ in your julia terminal or clone this repository and include the `src/FiberNlse.j
 
      
 ## 💡 Future ideas
-- [ ] Many solvers (as in [pychi](https://github.com/pychi-code/pychi/tree/main))
-- [ ] Make it compatible with **AD** for optimisation or inverse problems      
+- [ ] Many solvers (as in [pychi](https://github.com/pychi-code/pychi/tree/main))    
 
 ## 🤝 Contributions
 

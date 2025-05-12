@@ -103,16 +103,16 @@ mutable struct Stepper
 	z::Float64
 	local_error::Float64
 
-	k1::Union{Nothing, AbstractArray{ComplexF64}}
-	k2::Union{Nothing, AbstractArray{ComplexF64}}
-	k3::Union{Nothing, AbstractArray{ComplexF64}}
-	k4::Union{Nothing, AbstractArray{ComplexF64}}
-	k5::Union{Nothing, AbstractArray{ComplexF64}}
-	Uip::Union{Nothing, AbstractArray{ComplexF64}}
-	U1::Union{Nothing, AbstractArray{ComplexF64}}
-	U2::Union{Nothing, AbstractArray{ComplexF64}}
-	e::Union{Nothing, AbstractArray{ComplexF64}}
-	r::Union{Nothing, AbstractArray{ComplexF64}}
+	k1::AbstractArray{ComplexF64}
+	k2::AbstractArray{ComplexF64}
+	k3::AbstractArray{ComplexF64}
+	k4::AbstractArray{ComplexF64}
+	k5::AbstractArray{ComplexF64}
+	Uip::AbstractArray{ComplexF64}
+	U1::AbstractArray{ComplexF64}
+	U2::AbstractArray{ComplexF64}
+	e::AbstractArray{ComplexF64}
+	r::AbstractArray{ComplexF64}
 
 	it::Int
 end
