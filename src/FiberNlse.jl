@@ -2,11 +2,9 @@ module FiberNlse
 
 using FFTW
 
-export Waveguide, Solution, GNLSEProblem, RamanGNLSEProblem
-
-export gnlse, raman_linagrawaal
-
-export combine
+# Export only the main public API
+export Waveguide, Solution, GNLSEProblem, NoRaman, RamanModel
+export gnlse, combine, input, output
 
 # Light celerity
 c = 299792458

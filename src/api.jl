@@ -1,3 +1,12 @@
+"""
+    GNLSEProblem(t::AbstractArray{Float64}, wg::Waveguide)
+
+Constructs a `GNLSEProblem` struct containing all parameters and precomputed arrays needed for solving the generalized nonlinear Schrödinger equation (GNLSE) for a given time grid `t` and `Waveguide` `wg`.
+
+# See also
+- [`Waveguide`](@ref)
+- [`gnlse`](@ref)
+"""
 function GNLSEProblem(t::AbstractArray{Float64}, wg::Waveguide)
 
 	fftp = plan_fft(t, flags = FFTW.MEASURE)
@@ -21,15 +30,39 @@ function GNLSEProblem(t::AbstractArray{Float64}, wg::Waveguide)
 end
 
 
+"""
+    _compute_error(a, b)
+
+Computes the normalized root mean square error between two arrays `a` and `b`.
+
+# See also
+- [`_compute_error!`](@ref)
+"""
 function _compute_error(a, b)
 	return sqrt(sum(abs2.(a .- b)) ./ sum(abs2.(a)))
 end
 
 
+"""
+    _compute_error!(stepper::Stepper, a, b)
+
+Updates the `local_error` field of `stepper` with the normalized root mean square error between arrays `a` and `b`.
+
+# See also
+- [`_compute_error`](@ref)
+"""
 function _compute_error!(stepper::Stepper, a, b)
 	stepper.local_error = sqrt(sum(abs2.(a .- b)) ./ sum(abs2.(a)))
 end
 
+"""
+    _integrate_to_z(stepper::Stepper, z::Float64, prob::GNLSEProblem, maxiters::Int, reltol::Float64)
+
+Integrates the GNLSE from the current position of `stepper` up to distance `z`, using adaptive step size control. Throws an error if `maxiters` is exceeded.
+
+# See also
+- [`gnlse`](@ref)
+"""
 function _integrate_to_z(stepper::Stepper, z::Float64, prob::GNLSEProblem, maxiters::Int, reltol::Float64)
 	stepper.it = 0
 	while stepper.z < z
@@ -54,6 +87,16 @@ function _integrate_to_z(stepper::Stepper, z::Float64, prob::GNLSEProblem, maxit
 	end
 end
 
+"""
+    gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, prob::GNLSEProblem; nsaves=20, dz=1.0, reltol=1e-6, maxiters=1000)
+
+Solves the GNLSE for initial field `u` and time grid `t` using the problem definition `prob`. Returns a `Solution` struct with the propagation results.
+
+# See also
+- [`GNLSEProblem`](@ref)
+- [`Solution`](@ref)
+- [`gnlse(::AbstractArray{ComplexF64}, ::AbstractArray{Float64}, ::Waveguide; ...)`](@ref)
+"""
 function gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, prob::GNLSEProblem; nsaves = 20, dz = 1.0, reltol = 1e-6, maxiters = 1000)
 
 	dz = min(prob.L / (2 * nsaves), dz)
@@ -75,9 +118,26 @@ function gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, prob::GN
 	return Solution(zsaves, t, prob.ω / 2pi, ifft(M, 2), M)
 end
 
+"""
+    gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, wg::Waveguide; args...)
+
+Convenience wrapper for `gnlse` that constructs a `GNLSEProblem` from a `Waveguide` and calls `gnlse`.
+
+# See also
+- [`GNLSEProblem`](@ref)
+- [`gnlse(::AbstractArray{ComplexF64}, ::AbstractArray{Float64}, ::GNLSEProblem; ...)`](@ref)
+"""
 gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, wg::Waveguide; args...) = gnlse(u, t, GNLSEProblem(t, wg); args...)
 
+"""
+    gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, probs::Vector{GNLSEProblem}; args...)
 
+Propagates the field `u` through a sequence of `GNLSEProblem`s, chaining the output of each as the input to the next. Returns a combined `Solution`.
+
+# See also
+- [`combine`](@ref)
+- [`gnlse(::AbstractArray{ComplexF64}, ::AbstractArray{Float64}, ::Waveguide; ...)`](@ref)
+"""
 function gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, probs::Vector{GNLSEProblem}; args...)
 	sols = [gnlse(u, t, probs[1]; args...)]
 	for prob ∈ probs[2:end]
@@ -86,5 +146,14 @@ function gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, probs::V
 	combine(sols)
 end
 
+"""
+    gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, wgs::Vector{Waveguide}; args...)
+
+Propagates the field `u` through a sequence of `Waveguide`s, constructing a `GNLSEProblem` for each. Returns a combined `Solution`.
+
+# See also
+- [`GNLSEProblem`](@ref)
+- [`gnlse(::AbstractArray{ComplexF64}, ::AbstractArray{Float64}, ::Vector{GNLSEProblem}; ...)`](@ref)
+"""
 gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, wgs::Vector{Waveguide}; args...) = gnlse(u, t, [GNLSEProblem(t, wg) for wg in wgs]; args...)
 
