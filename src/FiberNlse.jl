@@ -15,7 +15,6 @@ include("datatypes.jl")
 include("api.jl")
 include("raman.jl")
 include("nonlinearity.jl")
-include("algorithm.jl")
 include("utils.jl")
 include("solvers.jl")
 end
