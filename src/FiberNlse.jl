@@ -4,7 +4,7 @@ using FFTW
 
 # Export only the main public API
 export Waveguide, Solution, GNLSEProblem, NoRaman, RamanModel
-export gnlse, combine, input, output
+export gnlse, combine, input, output, raman_linagrawaal
 
 # Light celerity
 c = 299792458
