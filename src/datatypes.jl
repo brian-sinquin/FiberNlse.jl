@@ -1,5 +1,5 @@
 """
-    RamanModel
+	RamanModel
 
 Struct describing the Raman response of the waveguide.
 
@@ -13,12 +13,12 @@ Struct describing the Raman response of the waveguide.
 - [`Waveguide`](@ref)
 """
 struct RamanModel
-    fr::Float64
-    time_response::Function
+	fr::Float64
+	time_response::Function
 end
 
 """
-    NoRaman
+	NoRaman
 
 An empty [`RamanModel`](@ref) struct to avoid simulating the Raman effect.
 
@@ -26,12 +26,12 @@ An empty [`RamanModel`](@ref) struct to avoid simulating the Raman effect.
 - [`RamanModel`](@ref)
 - [`Waveguide`](@ref)
 """
-NoRaman = RamanModel(0.0, () -> ())
+const NoRaman = RamanModel(0.0, () -> ())
 
 
 
 """
-    Waveguide
+	Waveguide
 
 Struct describing the waveguide, i.e., the propagation conditions.
 
@@ -50,17 +50,17 @@ Struct describing the waveguide, i.e., the propagation conditions.
 - [`GNLSEProblem`](@ref)
 """
 mutable struct Waveguide
-    α::Union{Float64, Array{Float64}}
-    βs::Array{Float64}
-    γ::Union{Float64, Array{Float64}}
-    λc::Float64
-    L::Float64
-    raman_model::RamanModel
-    self_steepening::Bool
+	α::Union{Float64, Array{Float64}}
+	βs::Array{Float64}
+	γ::Union{Float64, Array{Float64}}
+	λc::Float64
+	L::Float64
+	raman_model::RamanModel
+	self_steepening::Bool
 end
 
 """
-    Waveguide(α, βs, γ, λc, L; raman_model=NoRaman, self_steepening=false)
+	Waveguide(α, βs, γ, λc, L; raman_model=NoRaman, self_steepening=false)
 
 Constructs a [`Waveguide`](@ref) struct.
 
@@ -74,7 +74,7 @@ By default, no Raman effect nor self-steepening is activated.
 Waveguide(α, βs, γ, λc, L; raman_model = NoRaman, self_steepening = false) = Waveguide(α, βs, γ, λc, L, raman_model, self_steepening)
 
 """
-    GNLSEProblem
+	GNLSEProblem
 
 Struct containing all the parameters and precomputed arrays needed for solving the generalized nonlinear Schrödinger equation (GNLSE).
 
@@ -98,23 +98,23 @@ Struct containing all the parameters and precomputed arrays needed for solving t
 - [`Solution`](@ref)
 """
 mutable struct GNLSEProblem
-    ω::AbstractArray{Float64}
-    dt::Float64
-    N::Int
-    fftp::Any
-    ifftp::Any
-    dispersion_term::AbstractArray{ComplexF64}
-    nonlinear_function::Function
-    fr::Float64
-    γ::Float64
-    raman_freq_response::Union{Nothing, AbstractArray{ComplexF64}}
-    ω0::Float64
-    L::Float64
+	ω::AbstractArray{Float64}
+	dt::Float64
+	N::Int
+	fftp::Any
+	ifftp::Any
+	dispersion_term::AbstractArray{ComplexF64}
+	nonlinear_function::Function
+	fr::Float64
+	γ::Float64
+	raman_freq_response::Union{Nothing, AbstractArray{ComplexF64}}
+	ω0::Float64
+	L::Float64
 end
 
 
 """
-    Solution
+	Solution
 
 Struct containing the result of the simulation.
 
@@ -130,15 +130,15 @@ Struct containing the result of the simulation.
 - [`GNLSEProblem`](@ref)
 """
 mutable struct Solution
-    z::AbstractArray{Float64}
-    t::AbstractArray{Float64}
-    f::AbstractArray{Float64}
-    At::Matrix{ComplexF64}
-    Af::Matrix{ComplexF64}
+	z::AbstractArray{Float64}
+	t::AbstractArray{Float64}
+	f::AbstractArray{Float64}
+	At::Matrix{ComplexF64}
+	Af::Matrix{ComplexF64}
 end
 
 """
-    Stepper
+	Stepper
 
 Struct containing the fields that are updated or needed during the solver iterations.
 
@@ -158,22 +158,22 @@ Struct containing the fields that are updated or needed during the solver iterat
 - [`gnlse`](@ref)
 """
 mutable struct Stepper
-    U::AbstractArray{ComplexF64}
-    NU::AbstractArray{ComplexF64}
-    dz::Float64
-    z::Float64
-    local_error::Float64
-    k1::AbstractArray{ComplexF64}
-    k2::AbstractArray{ComplexF64}
-    k3::AbstractArray{ComplexF64}
-    k4::AbstractArray{ComplexF64}
-    k5::AbstractArray{ComplexF64}
-    Uip::AbstractArray{ComplexF64}
-    U1::AbstractArray{ComplexF64}
-    U2::AbstractArray{ComplexF64}
-    e::AbstractArray{ComplexF64}
-    r::AbstractArray{ComplexF64}
-    it::Int
+	U::AbstractArray{ComplexF64}
+	NU::AbstractArray{ComplexF64}
+	dz::Float64
+	z::Float64
+	local_error::Float64
+	k1::AbstractArray{ComplexF64}
+	k2::AbstractArray{ComplexF64}
+	k3::AbstractArray{ComplexF64}
+	k4::AbstractArray{ComplexF64}
+	k5::AbstractArray{ComplexF64}
+	Uip::AbstractArray{ComplexF64}
+	U1::AbstractArray{ComplexF64}
+	U2::AbstractArray{ComplexF64}
+	e::AbstractArray{ComplexF64}
+	r::AbstractArray{ComplexF64}
+	it::Int
 end
 
 

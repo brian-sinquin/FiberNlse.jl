@@ -18,7 +18,6 @@ Construct the Agrawal Raman model as a [`RamanModel`](@ref) with typical silica 
 
 # See also
 - [`RamanModel`](@ref)
-- [`NoRaman`](@ref)
 """
 function raman_linagrawaal(fr = 0.18, τl = 32e-15,
 	τvib = 12.2e-15)
