@@ -4,8 +4,7 @@ Documentation for [FiberNlse](https://github.com/brian-sinquin/FiberNlse.jl).
 
 ## Documentation
 
-```@contents
-```
+- [Theoretical background](theory.md)
 
 ## Index
 
