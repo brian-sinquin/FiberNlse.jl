@@ -8,5 +8,11 @@ end
 
 ```@autodocs
 Modules = [FiberNlse]
-Order   = [:module, :constant, :type, :function, :macro]
+Order   = [:module, :type, :function, :constant, :macro]
+```
+
+# API Reference
+
+```@autodocs
+Modules = [FiberNlse]
 ```
