@@ -8,5 +8,5 @@ end
 
 ```@autodocs
 Modules = [FiberNlse]
-Order   = [:function, :type]
+Order   = [:module, :constant, :type, :function, :macro]
 ```
