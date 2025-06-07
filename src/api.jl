@@ -95,7 +95,6 @@ Solves the GNLSE for initial field `u` and time grid `t` using the problem defin
 # See also
 - [`GNLSEProblem`](@ref)
 - [`Solution`](@ref)
-- [`gnlse(::AbstractArray{ComplexF64}, ::AbstractArray{Float64}, ::Waveguide; ...)`](@ref)
 """
 function gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, prob::GNLSEProblem; nsaves = 20, dz = 1.0, reltol = 1e-6, maxiters = 1000)
 
@@ -125,7 +124,6 @@ Convenience wrapper for `gnlse` that constructs a `GNLSEProblem` from a `Wavegui
 
 # See also
 - [`GNLSEProblem`](@ref)
-- [`gnlse(::AbstractArray{ComplexF64}, ::AbstractArray{Float64}, ::GNLSEProblem; ...)`](@ref)
 """
 gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, wg::Waveguide; args...) = gnlse(u, t, GNLSEProblem(t, wg); args...)
 
@@ -136,7 +134,6 @@ Propagates the field `u` through a sequence of `GNLSEProblem`s, chaining the out
 
 # See also
 - [`combine`](@ref)
-- [`gnlse(::AbstractArray{ComplexF64}, ::AbstractArray{Float64}, ::Waveguide; ...)`](@ref)
 """
 function gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, probs::Vector{GNLSEProblem}; args...)
 	sols = [gnlse(u, t, probs[1]; args...)]
@@ -153,7 +150,6 @@ Propagates the field `u` through a sequence of `Waveguide`s, constructing a `GNL
 
 # See also
 - [`GNLSEProblem`](@ref)
-- [`gnlse(::AbstractArray{ComplexF64}, ::AbstractArray{Float64}, ::Vector{GNLSEProblem}; ...)`](@ref)
 """
 gnlse(u::AbstractArray{ComplexF64}, t::AbstractArray{Float64}, wgs::Vector{Waveguide}; args...) = gnlse(u, t, [GNLSEProblem(t, wg) for wg in wgs]; args...)
 

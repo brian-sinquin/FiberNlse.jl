@@ -9,7 +9,6 @@ Struct describing the Raman response of the waveguide.
 
 # See also
 - [`raman_linagrawaal`](@ref)
-- [`NoRaman`](@ref)
 - [`Waveguide`](@ref)
 """
 struct RamanModel
@@ -46,7 +45,6 @@ Struct describing the waveguide, i.e., the propagation conditions.
 
 # See also
 - [`RamanModel`](@ref)
-- [`NoRaman`](@ref)
 - [`GNLSEProblem`](@ref)
 """
 mutable struct Waveguide
@@ -69,7 +67,6 @@ By default, no Raman effect nor self-steepening is activated.
 # See also
 - [`Waveguide`](@ref)
 - [`RamanModel`](@ref)
-- [`NoRaman`](@ref)
 """
 Waveguide(α, βs, γ, λc, L; raman_model = NoRaman, self_steepening = false) = Waveguide(α, βs, γ, λc, L, raman_model, self_steepening)
 
