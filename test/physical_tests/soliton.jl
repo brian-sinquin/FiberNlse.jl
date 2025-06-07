@@ -14,22 +14,18 @@
 
     α = 0.0
 
-    # Use keyword arguments for Waveguide constructor
-    fib = Waveguide(α=α, β2=-2.6e-26, γ=1.1e-3, λ=λ, L=L)
+    fib = Waveguide(α, [0.0, -2.6e-26], 1.1e-3, λ, L)
 
     t = (-N÷2:N÷2-1) * T / N
 
 
     # Input construction
-    P₀ = abs((fib.β2 / fib.γ / τ^2) * n^2) # Soliton power
+    P₀ = abs((fib.βs[2] / fib.γ / τ^2) * n^2) # Soliton power
     Ψₒ = sqrt(P₀) * sech.(t ./ τ) .+ 0.0im # Soliton formula
 
-    # Create a Solver object
-    solver = Solver(L, 200)
 
-    # Propagate the pulse
-    sol = gnlse(Ψₒ, fib, t, solver)
+    sol = gnlse(Ψₒ, t, fib, nsaves=200)
 
-    # Testing soliton propagation
-    @test isapprox(abs2.(Ψₒ), abs2.(sol.A[end, :]), atol=1e-4)
+    # Testing soliton propagation (including losses)
+    @test isapprox(abs2.(Ψₒ .* exp(-0.5 * fib.α * L)), abs2.(sol.At[end, :]), atol=1e-4)
 end

@@ -1,3 +1,4 @@
+
 @testset "Supercontinuum Generation - Dudley test" begin
 
     n = 2^13                   # number of grid points
@@ -22,24 +23,19 @@
     gamma = 0.11               # nonlinear coefficient [1/W/m]
     loss = 0.0                   # loss [dB/m]
 
-    wg = Waveguide(loss=loss, βs=betas, γ=gamma, raman_model=raman_linagrawaal(), self_steepening=true)
-    # Remove GNLSEProblem
-    #prob = GNLSEProblem(T, wg)
+    wg = Waveguide(loss, betas, gamma, wavelength, flength, raman_model=raman_linagrawaal(), self_steepening=true)
+    prob = GNLSEProblem(T, wg)
     # === simulation parameters
     nsaves = 200     # number of length steps to save field at
 
-    # Create solver
-    solver = Solver(flength, nsaves)
-
-    # Update gnlse call: remove T, nsaves and dz, add solver
-    sol = gnlse(A, wg, T, solver, reltol=1e-6)
+    sol = gnlse(A, T, wg, nsaves=nsaves, dz=flength / (0.5nsaves), reltol=1e-6)
     fn = joinpath(dirname(@__FILE__), "data/table_dudley_test_t.csv")
     dat = CSV.read(fn, DataFrame)
 
     t_dudley = dat.t
     It_dudley = parse.(ComplexF64, dat.At) .|> abs2
 
-    I = reverse(abs2.(sol.A[end, :]))
+    I = reverse(abs2.(sol.At[end, :]))
 
     #plot(abs.(I .- It_dudley) / maximum(I) * 100)
 
