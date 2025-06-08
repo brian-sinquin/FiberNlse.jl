@@ -1,4 +1,3 @@
-using FiberNlse
 using Documenter, Literate
 
 # Generate example notebooks/scripts
