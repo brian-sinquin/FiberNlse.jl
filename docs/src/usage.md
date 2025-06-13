@@ -1,101 +1,103 @@
-# Usage
+# Usage Guide
 
-This section provides a tutorial on how to use the FiberNlse.jl API to set up and run simulations.
+This guide provides an overview of how to use FiberNlse.jl to simulate pulse propagation in optical fibers.
 
-## Installation
+## Core Types
 
-First, install the FiberNlse.jl package:
+### Waveguide
+
+The `Waveguide` struct describes the propagation conditions in your fiber:
 
 ```julia
-using Pkg
-Pkg.add("FiberNlse")
+Waveguide(
+    α,      # Linear loss factor (scalar or frequency-dependent array)
+    βs,     # GVD orders vector (starting at 2nd order)
+    γ,      # Nonlinear factor (scalar or frequency-dependent array)
+    λc,     # Center wavelength (m)
+    L,      # Physical length (m)
+    raman_model = NoRaman,           # Optional: Raman model
+    self_steepening = false          # Optional: Enable self-steepening
+)
 ```
 
-## Setting up a simulation
+### RamanModel
 
-A typical simulation involves the following steps:
+The `RamanModel` struct describes the Raman response of the waveguide:
 
-1.  **Define the simulation parameters:** This includes the time window, number of points, and propagation step size.
-2.  **Create the initial pulse:** Define the initial field profile.
-3.  **Define the waveguide:** Specify the fiber parameters, such as dispersion, nonlinearity, and loss.
-4.  **Create a solver:** Set up the numerical solver with appropriate parameters.
-5.  **Run the simulation:** Propagate the pulse through the fiber using the GNLSE solver.
-6.  **Analyze the results:** Extract and visualize the simulation output.
+```julia
+RamanModel(
+    fr,             # Fractional contribution of Raman effect
+    time_response   # Function returning Raman impulse response vs time
+)
+```
 
-## Example: Simulating Supercontinuum Generation
+For simulations without Raman effect, use the `NoRaman` constant.
 
-Here's a step-by-step example demonstrating supercontinuum generation in an optical fiber:
+## Solving the GNLSE
 
-### 1. Define Simulation Parameters
+The package uses a 4th order Runge-Kutta in the Interaction Picture (ERK4IP) method to solve the Generalized Nonlinear Schrödinger Equation. 
+
+### Basic Usage
+
+Here's a basic example of pulse propagation:
 
 ```julia
 using FiberNlse
 
-# Simulation parameters
-dz = 0.01
-nz = 200
-nt = 2048
-T = 20.0
+# Define time grid
+N = 2^13                   # number of grid points
+T = 20e-12                # time window (s)
+t = (-N÷2:N÷2-1) * T/N    # time array
 
-# Time grid
-t = range(-T / 2, T / 2; length=nt)
+# Create input pulse (ensure it's ComplexF64)
+A = ComplexF64.(sqrt(1000) * sech.(t ./ 1e-12))
+
+# Define waveguide
+wg = Waveguide(0.0, [-20e-27], 0.1, 1550e-9, 1.0)
+
+# Solve GNLSE
+sol = gnlse(A, t, wg)
 ```
 
-### 2. Create the Initial Pulse
+### Adding Raman Effect
+
+To include Raman effect:
 
 ```julia
-# Initial pulse (sech-shaped)
-A0 = Base.sech.(t)
+# Create Raman model
+raman = raman_linagrawaal()  # Using built-in Raman response
+
+# Create waveguide with Raman effect
+wg = Waveguide(0.0, [-20e-27], 0.1, 1550e-9, 1.0, raman)
 ```
 
-### 3. Define the Waveguide
+### Self-Steepening
+
+To enable self-steepening:
 
 ```julia
-# Waveguide parameters
-β2 = -0.5
-β3 = 0.1
-γ = 2.0
-
-# Create the waveguide
-wg = WaveGuide(β2=β2, β3=β3, γ=γ)
+wg = Waveguide(0.0, [-20e-27], 0.1, 1550e-9, 1.0, NoRaman, true)
 ```
 
-### 4. Create a Solver
+## Working with Solutions
+
+The `gnlse` function returns a `Solution` struct containing:
+
+- `At`: Matrix of field amplitudes in time domain
+- `Af`: Matrix of field amplitudes in frequency domain
+- `t`: Time grid
+- `z`: Distance grid
+- `ω`: Angular frequency grid
+
+Access solution data:
 
 ```julia
-# Create the solver
-solver = Solver(dz, nz)
+# Time domain field at input
+At_input = sol.At[1,:]
+
+# Time domain field at output
+At_output = sol.At[end,:]
+
+# Frequency domain field at any z-position
+Af_at_z = sol.Af[z_index,:]
 ```
-
-### 5. Run the Simulation
-
-```julia
-# Propagate the pulse
-sol = gnlse(A0, wg, t, solver)
-```
-
-### 6. Analyze the Results
-
-```julia
-# Access the results
-A = sol.A  # Field evolution
-z = sol.z  # Propagation distances
-```
-
-### 7. Visualize the Results (Optional)
-
-To visualize the results, you can use the `Plots` package:
-
-```julia
-using Plots
-using FFTW
-
-# Calculate the spectrum at the end of the fiber
-ω = fftshift(fftfreq(nt, t[2]-t[1]))
-spectrum = abs.(fftshift(fft(A[:, end])))
-
-# Plot the spectrum
-plot(ω, spectrum, xlabel="Frequency", ylabel="Intensity", title="Output Spectrum")
-```
-
-This example provides a basic framework for setting up and running simulations with FiberNlse.jl. You can modify the parameters, pulse shapes, and waveguide properties to explore different nonlinear effects in optical fibers. Refer to the API documentation for more details on the available functions and options.

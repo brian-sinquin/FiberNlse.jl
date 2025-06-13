@@ -1,26 +1,48 @@
-using Documenter, Literate
+# Add the src directory to LOAD_PATH
+push!(LOAD_PATH, joinpath(@__DIR__, "../src"))
+using Documenter, FiberNlse
 
-# Generate example notebooks/scripts
-Literate.markdown("examples/supercontinuum_example.jl", "src/examples"; documenter=true)
-Literate.markdown("examples/soliton_example.jl", "src/examples"; documenter=true)
+cd(@__DIR__)
 
 makedocs(;
     sitename="FiberNlse.jl",
     modules=[FiberNlse],
     checkdocs=:exports,
-    authors="curio-sitas <brian.sinquin@gmail.com> and contributors",
+    authors="brian-sinquin <brian.sinquin@gmail.com> and contributors",
     format=Documenter.HTML(;
         canonical="https://brian-sinquin.github.io/FiberNlse.jl",
         edit_link="main",
+        prettyurls=get(ENV, "CI", nothing) == "true",
         assets=String[],
     ),
     pages=[
         "Home" => "index.md",
-        "Examples" => [
-            "Supercontinuum" => "examples/supercontinuum_example.md",
-            "Soliton" => "examples/soliton_example.md",
+        "Getting Started" => [
+            "Installation" => "installation.md",
+            "Quick Start Guide" => "quickstart.md",
         ],
-        "API" => "api.md",
+        "User Guide" => [
+            "Usage" => "usage.md",
+            "Theoretical Background" => "theory.md",
+            "Visualization Guide" => "visualization.md",
+        ],
+        "Examples" => [
+            "Basic Effects" => [
+                "Soliton Propagation" => "examples/soliton.md",
+                "Soliton Fission" => "examples/soliton_fission.md",
+                "Pulse Compression" => "examples/compression.md",
+            ],
+            "Advanced Effects" => [
+                "Supercontinuum Generation" => "examples/supercontinuum.md",
+            ],
+            "Different Waveguides" => "examples/waveguides.md",
+        ],
+        "Technical Reference" => "reference.md",
+        "API Reference" => "api.md",
+        "Developer Guide" => [
+            "Contributing" => "developer/contributing.md",
+            "Code Style" => "developer/style.md",
+        ]
     ],
 )
 

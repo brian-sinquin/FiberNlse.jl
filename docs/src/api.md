@@ -1,18 +1,32 @@
 ```@meta
 DocTestSetup = quote
-    using MyModule
+    using FiberNlse
 end
-```
-
-# FiberNlse
-
-```@autodocs
-Modules = [FiberNlse]
-Order   = [:module, :type, :function, :constant, :macro]
 ```
 
 # API Reference
 
-```@autodocs
-Modules = [FiberNlse]
+## Core Types
+
+```@docs
+Waveguide
+RamanModel
+NoRaman
+GNLSEProblem
+Solution
+```
+
+## Main Functions
+
+```@docs
+gnlse
+raman_linagrawaal
+input
+output
+combine
+```
+
+## Function Index
+
+```@index
 ```

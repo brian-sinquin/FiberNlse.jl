@@ -1,32 +1,43 @@
-# FiberNlse
+# FiberNlse.jl Documentation
 
-Documentation for [FiberNlse](https://github.com/brian-sinquin/FiberNlse.jl).
+FiberNlse.jl is a Julia package for simulating nonlinear pulse propagation in optical waveguides. It solves the Generalized Nonlinear Schrödinger Equation (GNLSE) using a 4th order Runge-Kutta in the Interaction Picture (ERK4IP) method.
 
-## Overview
+## Applications
 
-FiberNlse is a Julia package for simulating pulse propagation in optical fibers using the generalized nonlinear Schrödinger equation (GNLSE).
+The package can simulate pulse propagation in various waveguiding structures:
+- Optical fibers (both standard and photonic crystal fibers)
+- Integrated optical waveguides
+- Other guided-wave optical structures
 
-## Documentation
+## Features
 
-- [Installation](installation.md)
-- [Theoretical background](theory.md)
-- [Usage](usage.md)
-- [API Reference](api.md)
-- [Examples](examples.md)
+- Solve the GNLSE for pulse propagation in optical waveguides
+- Support for:
+  - Arbitrary-order dispersion
+  - Kerr nonlinearity (with optional wavelength dependence)
+  - Linear loss or gain (with optional wavelength dependence)
+  - Raman effect (with customizable response function)
+  - Self-steepening
+- Efficient implementation using FFT-based methods
+- Built-in visualization tools
 
-## Index
+## Example Applications
 
-```@index
-```
+The package includes several examples demonstrating different nonlinear optical phenomena and waveguide types:
 
-using Documenter, Literate
+- [Soliton Propagation](examples/soliton.md): Fundamental and higher-order soliton dynamics
+- [Soliton Fission](examples/soliton_fission.md): Higher-order soliton breakup
+- [Pulse Compression](examples/compression.md): Chirped pulse compression
+- [Supercontinuum Generation](examples/supercontinuum.md): Extreme spectral broadening
+- [Waveguide Examples](examples/waveguides.md): Implementation for different waveguide types
 
-# Generate example notebooks/scripts
-Literate.markdown("examples/propagation.jl", "src/examples")
-Literate.markdown("examples/supercontinuum.jl", "src/examples")
+## Getting Started
 
-makedocs(
-    ...
-    modules = [FiberNlse],
-    ...
-)
+1. First, [install](installation.md) the package
+2. Follow the [Quick Start Guide](quickstart.md) to run your first simulation
+3. Read the [Usage Guide](usage.md) for more detailed information
+4. Check the [API Reference](api.md) for complete documentation
+
+## Physical Background
+
+For an introduction to the underlying physics and equations, see the [Theory](theory.md) section.
