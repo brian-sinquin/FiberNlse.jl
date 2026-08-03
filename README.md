@@ -1,4 +1,4 @@
-🚧 **This package's successor is [GNLSE.jl](https://github.com/brian-sinquin/GNLSE.jl)**, which covers this repo's 2.0 roadmap (GNLSE physics, Raman scattering, self-steepening, many solvers) and more. FiberNlse.jl may eventually be deprecated or become a lightweight, specialized wrapper around GNLSE.jl.
+🚧 **This package's successor is [Soliton.jl](https://github.com/brian-sinquin/Soliton.jl)**, which covers this repo's 2.0 roadmap (GNLSE physics, Raman scattering, self-steepening, many solvers) and more. FiberNlse.jl may eventually be deprecated or become a lightweight, specialized wrapper around Soliton.jl.
 
 <p align="center">
 <img src="images/logo.png" />
